@@ -11,17 +11,26 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public abstract class RestService {
 
-    private String restEndpoint;
-    private ObjectMapper objectMapper;
-    private RestTemplate restTemplate;
+    private static final String AUTH_HEADER = "qhse-user-is-authenticated";
+    private static final String SECRET_HEADER = "qhse-service-secret";
+    private static final String AUTHENTICATED_USER = "qhse-authenticated-user";
 
-    protected RestService(String restEndpoint) {
-        this.restEndpoint = restEndpoint;
+    private final String restEndpoint;
+    private final ObjectMapper objectMapper;
+    private final RestTemplate restTemplate;
+    private final String secret;
+    private final String authenticatedUser;
+
+    protected RestService(Map<String, String> properties) {
         this.objectMapper = new ObjectMapper();
         this.restTemplate = new RestTemplate();
+        this.restEndpoint = properties.get(RestServiceProperties.REST_ENDPOINT);
+        this.secret = properties.get(RestServiceProperties.SERVICE_SECRET);
+        this.authenticatedUser = properties.get(RestServiceProperties.AUTHENTICATED_USER);
     }
 
     protected <S> S requestSingle(Class<S> responseClass, String requestMapping) {
@@ -98,9 +107,9 @@ public abstract class RestService {
 
     private String requestWithRequestParameter(String requestMapping, MultiValueMap<String, Object> requestParameter) {
         //build headers
-        HttpHeaders httpHeaders = new HttpHeaders();
+        HttpHeaders httpHeaders = getHeaderWithAuthentication();
         httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        httpHeaders.setAccept(new ArrayList<>(){
+        httpHeaders.setAccept(new ArrayList<>() {
             {
                 add(MediaType.APPLICATION_JSON_UTF8);
             }
@@ -123,9 +132,9 @@ public abstract class RestService {
 
     private String requestWithRequestBody(String requestMapping, Object requestBody) throws JsonProcessingException {
         //build headers
-        HttpHeaders httpHeaders = new HttpHeaders();
+        HttpHeaders httpHeaders = getHeaderWithAuthentication();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        httpHeaders.setAccept(new ArrayList<>(){
+        httpHeaders.setAccept(new ArrayList<>() {
             {
                 add(MediaType.APPLICATION_JSON_UTF8);
             }
@@ -140,5 +149,13 @@ public abstract class RestService {
 
         //send request
         return restTemplate.postForObject(requestUrl, httpEntity, String.class);
+    }
+
+    private HttpHeaders getHeaderWithAuthentication() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(AUTH_HEADER, "true");
+        httpHeaders.add(SECRET_HEADER, secret);
+        httpHeaders.add(AUTHENTICATED_USER, authenticatedUser);
+        return httpHeaders;
     }
 }

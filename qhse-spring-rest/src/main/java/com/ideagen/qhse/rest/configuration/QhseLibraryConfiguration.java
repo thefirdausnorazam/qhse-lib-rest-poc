@@ -1,5 +1,7 @@
 package com.ideagen.qhse.rest.configuration;
 
+import com.ideagen.qhse.lib.versioned.UserServiceV2;
+import com.ideagen.qhse.lib.versioned.impl.UserServiceV2Impl;
 import com.ideagen.qhse.pojo.QhseServiceFactory;
 import com.ideagen.qhse.pojo.service.DomainService;
 import com.ideagen.qhse.pojo.service.RoleService;
@@ -46,5 +48,10 @@ public class QhseLibraryConfiguration {
     @Bean
     public RoleService roleService() {
         return QhseServiceFactory.getRoleService(libraryProperties());
+    }
+
+    @Bean
+    public UserServiceV2 userServiceV2() {
+        return new UserServiceV2Impl(libraryProperties());
     }
 }

@@ -6,11 +6,12 @@ import com.ideagen.qhse.pojo.service.DomainService;
 import org.springframework.util.LinkedMultiValueMap;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class DomainRestService extends RestService implements DomainService {
 
-    DomainRestService(String restEndpoint) {
-        super(restEndpoint);
+    DomainRestService(Map<String, String> properties) {
+        super(properties);
     }
 
     @Override

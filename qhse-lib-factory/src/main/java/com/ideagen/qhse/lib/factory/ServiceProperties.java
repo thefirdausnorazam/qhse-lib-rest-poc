@@ -5,5 +5,4 @@ public class ServiceProperties {
     public static final String SERVICE_TYPE = "qhse.library.service.type";
     public static final String BINARY = "binary";
     public static final String REST = "rest";
-    public static final String REST_ENDPOINT = "qhse.library.rest.endpoint";
 }

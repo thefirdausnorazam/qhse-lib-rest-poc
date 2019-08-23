@@ -2,9 +2,12 @@ package com.ideagen.qhse.lib.factory;
 
 import com.ideagen.qhse.lib.factory.exception.FactoryException;
 import com.ideagen.qhse.lib.factory.validator.PropertiesValidator;
+import com.ideagen.qhse.lib.rest.impl.RestServiceProperties;
 import com.ideagen.qhse.lib.rest.impl.domain.DomainRestServiceFactory;
 import com.ideagen.qhse.lib.rest.impl.role.RoleRestServiceFactory;
 import com.ideagen.qhse.lib.rest.impl.user.UserRestServiceFactory;
+import com.ideagen.qhse.lib.versioned.UserServiceV2;
+import com.ideagen.qhse.lib.versioned.impl.UserServiceV2Impl;
 import com.ideagen.qhse.pojo.QhseServiceFactory;
 import com.ideagen.qhse.pojo.service.DomainService;
 import com.ideagen.qhse.pojo.service.RoleService;
@@ -27,16 +30,17 @@ public class QhseServiceImplFactory {
                         return serviceClass.cast(QhseServiceFactory.getDomainService(properties));
                     } else if (serviceClass == RoleService.class) {
                         return serviceClass.cast(QhseServiceFactory.getRoleService(properties));
+                    } else if (serviceClass == UserServiceV2.class) {
+                        return serviceClass.cast(new UserServiceV2Impl(properties));
                     }
                     break;
                 case ServiceProperties.REST:
-                    String restEndpoint = String.valueOf(properties.get(ServiceProperties.REST_ENDPOINT));
                     if (serviceClass == UserService.class) {
-                        return serviceClass.cast(UserRestServiceFactory.getService(restEndpoint));
+                        return serviceClass.cast(UserRestServiceFactory.getService(properties));
                     } else if (serviceClass == DomainService.class) {
-                        return serviceClass.cast(DomainRestServiceFactory.getService(restEndpoint));
+                        return serviceClass.cast(DomainRestServiceFactory.getService(properties));
                     } else if (serviceClass == RoleService.class) {
-                        return serviceClass.cast(RoleRestServiceFactory.getService(restEndpoint));
+                        return serviceClass.cast(RoleRestServiceFactory.getService(properties));
                     }
                     break;
                 default:

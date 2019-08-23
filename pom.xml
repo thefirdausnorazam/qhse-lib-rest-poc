@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
+        <module>qhse-lib-versioned</module>
         <module>qhse-lib-rest-impl</module>
         <module>qhse-lib-factory</module>
         <module>qhse-spring-rest</module>

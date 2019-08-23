@@ -21,6 +21,7 @@ public class UserController implements UserService {
         this.userService = userService;
     }
 
+    @Deprecated(forRemoval = true)
     @PostMapping(value = UserServiceRequestMapping.GET_USER,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -28,6 +29,7 @@ public class UserController implements UserService {
         return userService.getUser(username);
     }
 
+    @Deprecated(forRemoval = true)
     @PostMapping(value = UserServiceRequestMapping.GET_USER_2,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -35,6 +37,7 @@ public class UserController implements UserService {
         return userService.getUser(username, domain);
     }
 
+    @Deprecated(forRemoval = true)
     @PostMapping(value = UserServiceRequestMapping.GET_USER_BY_ID,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,6 +45,7 @@ public class UserController implements UserService {
         return userService.getUserById(id);
     }
 
+    @Deprecated(forRemoval = true)
     @PostMapping(value = UserServiceRequestMapping.LOGON,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,6 +53,7 @@ public class UserController implements UserService {
         return userService.logon(username, password);
     }
 
+    @Deprecated(forRemoval = true)
     @PostMapping(value = UserServiceRequestMapping.LOGON_2,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

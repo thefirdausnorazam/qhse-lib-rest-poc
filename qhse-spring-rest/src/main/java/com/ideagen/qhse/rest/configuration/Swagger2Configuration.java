@@ -28,10 +28,10 @@ public class Swagger2Configuration {
     private ApiInfo apiEndPointsInfo() {
         return new ApiInfoBuilder().title("QHSE REST API")
                 .description("QHSE REST API")
-                .contact(new Contact("Firdaus Norazam", "www.ideagen.com", "firdaus.norazam@ideagenplc.com"))
+                .contact(new Contact("Firdaus Norazam", "https://www.ideagen.com/", "firdaus.norazam@ideagenplc.com"))
                 .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-                .version("1.0.0")
+                .version("2.0.0")
                 .build();
     }
 }

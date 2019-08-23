@@ -1,6 +1,7 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ideagen.qhse.lib.factory.QhseServiceImplFactory;
 import com.ideagen.qhse.lib.factory.ServiceProperties;
+import com.ideagen.qhse.lib.rest.impl.RestServiceProperties;
 import com.ideagen.qhse.pojo.constants.CommonConstants;
 import com.ideagen.qhse.pojo.dto.DomainDto;
 import com.ideagen.qhse.pojo.dto.RoleDto;
@@ -37,7 +38,9 @@ public class Application {
             put(ServiceProperties.SERVICE_TYPE, ServiceProperties.REST);
 
             //required properties
-            put(ServiceProperties.REST_ENDPOINT, "http://localhost:9999/");
+            put(RestServiceProperties.REST_ENDPOINT, "http://localhost:9999/");
+            put(RestServiceProperties.SERVICE_SECRET, "firdausnorazam2");
+            put(RestServiceProperties.AUTHENTICATED_USER, "demo");
         }
     };
 

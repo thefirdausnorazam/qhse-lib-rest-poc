@@ -7,12 +7,15 @@ import org.springframework.stereotype.Component;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Component
 public class RequestLoggerFilter implements Filter {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss z");
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -24,11 +27,8 @@ public class RequestLoggerFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
-        StringBuilder sb = new StringBuilder();
-
-
-        logger.info("Incoming request : timestamp = {}, request URI = {}, origin = {}",
-                LocalDateTime.now().toString(),
+        logger.info("Incoming request : timestamp = {}, request URI = {}, origin = {}, ",
+                ZonedDateTime.now().format(formatter),
                 httpServletRequest.getRequestURI(),
                 httpServletRequest.getRemoteAddr());
 

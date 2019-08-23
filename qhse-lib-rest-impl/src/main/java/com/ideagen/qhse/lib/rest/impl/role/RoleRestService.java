@@ -5,10 +5,12 @@ import com.ideagen.qhse.pojo.dto.RoleDto;
 import com.ideagen.qhse.pojo.service.RoleService;
 import org.springframework.util.LinkedMultiValueMap;
 
+import java.util.Map;
+
 public class RoleRestService extends RestService implements RoleService {
 
-    RoleRestService(String restEndpoint) {
-        super(restEndpoint);
+    RoleRestService(Map<String, String> properties) {
+        super(properties);
     }
 
     @Override
