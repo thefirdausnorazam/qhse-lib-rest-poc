@@ -1,4 +1,4 @@
-from openjdk:11
+from openjdk:11.0.4-jre
 MAINTAINER Firdaus Norazam <firdaus.norazam@ideagen.com>
 
 VOLUME /tmp
