@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+
+    <persistence-unit name="com.ideagen.qhse.pojo.persistance">
+        <description>Hibernate EntityManager</description>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.ideagen.qhse.orm.entity.User</class>
+        <class>com.ideagen.qhse.orm.entity.Role</class>
+        <class>com.ideagen.qhse.orm.entity.Domain</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    </persistence-unit>
+
+</persistence>

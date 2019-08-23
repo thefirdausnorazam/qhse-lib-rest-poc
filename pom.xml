@@ -9,6 +9,8 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
+        <module>qhse-orm</module>
+        <module>qhse-pojo</module>
         <module>qhse-lib-versioned</module>
         <module>qhse-lib-rest-impl</module>
         <module>qhse-lib-factory</module>
