@@ -18,7 +18,7 @@
         <module>qhse-service-rest-question-maintainance</module>
         <module>qhse-service-rest-role</module>
         <module>qhse-service-rest-user</module>
-        <module>qhse-web</module>
+<!--        <module>qhse-web</module>-->
         <module>qhse-spring-filter</module>
     </modules>
 
