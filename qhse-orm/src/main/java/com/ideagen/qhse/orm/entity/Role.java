@@ -7,8 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 @Entity
 @Table(name = "role")
+@NamedQueries({
+    @NamedQuery(name = "role.listByName", query = "from Role r where r.name = :name")
+})
 public class Role {
 
     @Id

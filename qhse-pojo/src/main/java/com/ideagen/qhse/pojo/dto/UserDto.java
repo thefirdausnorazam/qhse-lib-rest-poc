@@ -2,9 +2,14 @@ package com.ideagen.qhse.pojo.dto;
 
 import java.util.Collection;
 
-public class UserDto {
+public class UserDto extends AbstractDto implements java.io.Serializable {
 	
-	private String id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     private String name;
 
@@ -16,11 +21,11 @@ public class UserDto {
     
     private Collection<RoleDto> roleDtos;
 
-    public String getId() {
+    public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

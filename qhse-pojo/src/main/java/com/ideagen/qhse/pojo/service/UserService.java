@@ -8,7 +8,7 @@ public interface UserService {
     
     UserDto getUser(String username, Long domain);
     
-    UserDto getUserById(String id);
+    UserDto getUserById(Long id);
     
     UserDto logon(String username, String password);
     

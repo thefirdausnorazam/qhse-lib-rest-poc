@@ -2,16 +2,13 @@ package com.ideagen.qhse.lib.factory;
 
 import com.ideagen.qhse.lib.factory.exception.FactoryException;
 import com.ideagen.qhse.lib.factory.validator.PropertiesValidator;
-import com.ideagen.qhse.lib.rest.impl.RestServiceProperties;
 import com.ideagen.qhse.lib.rest.impl.domain.DomainRestServiceFactory;
+import com.ideagen.qhse.lib.rest.impl.law.LawRestServiceFactory;
+import com.ideagen.qhse.lib.rest.impl.question.maintainance.QuestionMaintenanceRestServiceFactory;
 import com.ideagen.qhse.lib.rest.impl.role.RoleRestServiceFactory;
 import com.ideagen.qhse.lib.rest.impl.user.UserRestServiceFactory;
-import com.ideagen.qhse.lib.versioned.UserServiceV2;
-import com.ideagen.qhse.lib.versioned.impl.UserServiceV2Impl;
 import com.ideagen.qhse.pojo.QhseServiceFactory;
-import com.ideagen.qhse.pojo.service.DomainService;
-import com.ideagen.qhse.pojo.service.RoleService;
-import com.ideagen.qhse.pojo.service.UserService;
+import com.ideagen.qhse.pojo.service.*;
 
 import java.util.Map;
 
@@ -30,8 +27,10 @@ public class QhseServiceImplFactory {
                         return serviceClass.cast(QhseServiceFactory.getDomainService(properties));
                     } else if (serviceClass == RoleService.class) {
                         return serviceClass.cast(QhseServiceFactory.getRoleService(properties));
-                    } else if (serviceClass == UserServiceV2.class) {
-                        return serviceClass.cast(new UserServiceV2Impl(properties));
+                    } else if (serviceClass == LawService.class) {
+                        return serviceClass.cast(QhseServiceFactory.getLawService(properties));
+                    } else if (serviceClass == QuestionMaintenanceService.class) {
+                        return serviceClass.cast(QuestionMaintenanceService.class);
                     }
                     break;
                 case ServiceProperties.REST:
@@ -41,6 +40,10 @@ public class QhseServiceImplFactory {
                         return serviceClass.cast(DomainRestServiceFactory.getService(properties));
                     } else if (serviceClass == RoleService.class) {
                         return serviceClass.cast(RoleRestServiceFactory.getService(properties));
+                    } else if (serviceClass == LawService.class) {
+                        return serviceClass.cast(LawRestServiceFactory.getService(properties));
+                    } else if (serviceClass == QuestionMaintenanceService.class) {
+                        return serviceClass.cast(QuestionMaintenanceRestServiceFactory.getService(properties));
                     }
                     break;
                 default:

@@ -6,7 +6,7 @@
     <groupId>com.ideagen</groupId>
     <artifactId>qhse-lib-factory</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>1.0.0</version>
 
     <properties>
         <java.version>11</java.version>
@@ -17,7 +17,7 @@
         <dependency>
             <groupId>com.ideagen</groupId>
             <artifactId>qhse-pojo</artifactId>
-            <version>1.0.0-POC</version>
+            <version>1.0.0-POC-V2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -32,13 +32,7 @@
         <dependency>
             <groupId>com.ideagen</groupId>
             <artifactId>qhse-lib-rest-impl</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.ideagen</groupId>
-            <artifactId>qhse-lib-versioned</artifactId>
-            <version>1.0</version>
+            <version>1.0-POC-V2</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

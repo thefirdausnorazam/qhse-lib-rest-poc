@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManagerFactory;
 
@@ -19,8 +20,8 @@ public class DomainServiceImpl implements DomainService {
 	
 	private DomainDaoImpl domainDao;
 
-    public DomainServiceImpl(EntityManagerFactory entityManagerFactory) {
-        domainDao = new DomainDaoImpl(entityManagerFactory);
+    public DomainServiceImpl(Map<String, String> ormProperties) {
+        domainDao = new DomainDaoImpl(ormProperties);
     }
 
 	@Override
@@ -33,7 +34,7 @@ public class DomainServiceImpl implements DomainService {
 	@Override
 	public Collection<DomainDto> getAllDomains() {
 		
-		List<DomainDto> domains = new ArrayList<DomainDto>(domainDao.listAllDomains().size());
+		List<DomainDto> domains = new ArrayList<DomainDto>();
 		
 		for(Domain domain: domainDao.listAllDomains()) {
 			
@@ -76,7 +77,7 @@ public class DomainServiceImpl implements DomainService {
 	@Override
 	public Collection<DomainDto> getDomainByName(String name) {
 		
-		List<DomainDto> domains = new ArrayList<DomainDto>(domainDao.findByName(name).size());
+		List<DomainDto> domains = new ArrayList<DomainDto>();
 		
 		for(Domain domain: domainDao.findByName(name)) {
 			

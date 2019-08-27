@@ -1,8 +1,7 @@
 package com.ideagen.qhse.pojo.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
-
-import javax.persistence.EntityManagerFactory;
+import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -15,8 +14,8 @@ public class RoleServiceImpl implements RoleService {
 	
 	private RoleDaoImpl roleDao;
 
-    public RoleServiceImpl(EntityManagerFactory entityManagerFactory) {
-        roleDao = new RoleDaoImpl(entityManagerFactory);
+    public RoleServiceImpl(Map<String, String> ormProperties) {
+        roleDao = new RoleDaoImpl(ormProperties);
     }
 
 	@Override

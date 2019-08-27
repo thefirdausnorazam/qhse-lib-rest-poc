@@ -5,7 +5,7 @@
 
 	<groupId>com.ideagen</groupId>
 	<artifactId>qhse-pojo</artifactId>
-	<version>1.0.0-POC</version>
+	<version>1.0.0-POC-V2</version>
 	<packaging>jar</packaging>
 
 	<name>qhse-pojo</name>
@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>com.ideagen</groupId>
 			<artifactId>qhse-orm</artifactId>
-			<version>1.0.0-POC</version>
+			<version>1.0.0-POC-V2</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -45,6 +45,18 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-crypto</artifactId>
 			<version>5.1.5.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>28.0-jre</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
 		</dependency>
 	</dependencies>
 

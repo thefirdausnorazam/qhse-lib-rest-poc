@@ -1,75 +1,48 @@
 package com.ideagen.qhse.orm.dao.impl;
 
+import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+
+import org.hibernate.Session;
 
 import com.ideagen.qhse.orm.dao.RoleDao;
 import com.ideagen.qhse.orm.entity.Role;
+import com.ideagen.qhse.orm.util.HibernateUtil;
 
 public class RoleDaoImpl implements RoleDao {
-	
-	private EntityManagerFactory entityManagerFactory;
 
-    public RoleDaoImpl(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
-	
+	private Map<String, String> ormProperties;
+
+	public RoleDaoImpl(Map<String, String> ormProperties) {
+		this.ormProperties = ormProperties;
+	}
+
 	public Optional<Role> findById(Long id) {
-        EntityTransaction transaction = null;
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+		
+		Session session = HibernateUtil.getSessionFactory(ormProperties).openSession();
 
-        try {
-            //get transaction
-            transaction = entityManager.getTransaction();
-            //begin transaction
-            transaction.begin();
+		try {
+			return Optional.of(session.find(Role.class, id));
+		} catch (NoResultException e) {
+			return Optional.empty();
+		} finally {
+			session.close();
+		}
+	}
 
-            //get role
-            Role role = entityManager.find(Role.class, id);
-
-            //commit transaction
-            transaction.commit();
-
-            return Optional.of(role);
-        } catch (Exception e) {
-
-        } finally {
-            entityManager.close();
-        }
-
-        return Optional.empty();
-    }
-	
 	public Optional<Role> findByName(String name) {
-        EntityTransaction transaction = null;
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+		
+		Session session = HibernateUtil.getSessionFactory(ormProperties).openSession();
 
-        try {
-            //get transaction
-            transaction = entityManager.getTransaction();
-            //begin transaction
-            transaction.begin();
-
-            //get role
-            Role role = entityManager
-                    .createQuery("from Role r where r.name = :name ", Role.class)
-                    .setParameter("name", name)
-                    .getSingleResult();
-
-            //commit transaction
-            transaction.commit();
-
-            return Optional.of(role);
-        } catch (Exception e) {
-
-        } finally {
-            entityManager.close();
-        }
-
-        return Optional.empty();
-    }
+		try {
+			return Optional.of(session.createNamedQuery("role.listByName", Role.class).setParameter("name", name).getSingleResult());
+		} catch (NoResultException e) {
+			return Optional.empty();
+		} finally {
+			session.close();
+		}
+	}
 
 }

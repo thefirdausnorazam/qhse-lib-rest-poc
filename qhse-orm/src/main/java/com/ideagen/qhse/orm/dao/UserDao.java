@@ -6,7 +6,7 @@ import com.ideagen.qhse.orm.entity.User;
 
 public interface UserDao {
 	
-	Optional<User> findById(String id);
+	Optional<User> findById(Long id);
 
     Optional<User> findByUsername(String username);
     

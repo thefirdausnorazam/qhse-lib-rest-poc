@@ -5,7 +5,7 @@
 
 	<groupId>com.ideagen</groupId>
 	<artifactId>qhse-orm</artifactId>
-	<version>1.0.0-POC</version>
+	<version>1.0.0-POC-V2</version>
 	<packaging>jar</packaging>
 
 	<name>qhse-orm</name>
@@ -30,8 +30,32 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.9</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>5.1.9.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-dao -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-dao</artifactId>
+			<version>2.0.8</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.v-ladynev/fluent-hibernate-core -->
+		<dependency>
+			<groupId>com.github.v-ladynev</groupId>
+			<artifactId>fluent-hibernate-core</artifactId>
+			<version>0.3.1</version>
+		</dependency>
 	</dependencies>
-	
+
 	<build>
         <plugins>
             <plugin>

@@ -2,9 +2,14 @@ package com.ideagen.qhse.pojo.dto;
 
 import java.sql.Timestamp;
 
-public class DomainDto {
+public class DomainDto implements java.io.Serializable {
 	
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 	
 	private String discriminator;
 	

@@ -3,12 +3,12 @@ package com.ideagen.qhse.pojo.service.impl;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.EntityManagerFactory;
+import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.ideagen.qhse.orm.dao.impl.DomainDaoImpl;
 import com.ideagen.qhse.orm.dao.impl.UserDaoImpl;
 import com.ideagen.qhse.orm.entity.Role;
 import com.ideagen.qhse.orm.entity.User;
@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService {
 
     private UserDaoImpl userDao;
 
-    public UserServiceImpl(EntityManagerFactory entityManagerFactory) {
-        userDao = new UserDaoImpl(entityManagerFactory);
+    public UserServiceImpl(Map<String, String> ormProperties) {
+    	userDao = new UserDaoImpl(ormProperties);
     }
 
     public UserDto getUser(String username) {
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
                 .orElse(null);
     }
     
-    public UserDto getUserById(String id) {
+    public UserDto getUserById(Long id) {
         return userDao.findById(id)
                 .map(user -> usertoDto(user))
                 .orElse(null);
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     private UserDto usertoDto(User user) {
         
     	UserDto userDto = new UserDto();
-    	List<RoleDto> roleDtos = new ArrayList<RoleDto>(user.getRoles().size());
+    	List<RoleDto> roleDtos = new ArrayList<RoleDto>();
         
         try {
 			BeanUtils.copyProperties(userDto, user);

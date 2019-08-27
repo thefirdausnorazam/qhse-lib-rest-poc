@@ -7,8 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 @Entity
 @Table(name = "domain")
+@NamedQueries({
+    @NamedQuery(name = "domain.listAll", query = "from Domain d"),
+    @NamedQuery(name = "domain.listByName", query = "from Domain d where d.name = :name")
+})
 public class Domain {
 	
 	@Id
@@ -23,52 +30,52 @@ public class Domain {
 	@Column(name = "active", nullable = false)
 	private boolean active;
 	
-	@Column(name = "url", nullable = true)
+	@Column(name = "url")
 	private String url;
 	
-	@Column(name = "root_dn", nullable = true)
+	@Column(name = "root_dn")
 	private String rootDn;
 	
-	@Column(name = "user_search_base", nullable = true)
+	@Column(name = "user_search_base")
 	private String userSearchBase;
 	
-	@Column(name = "group_search_base", nullable = true)
+	@Column(name = "group_search_base")
 	private String groupSearchBase;
 	
-	@Column(name = "user_name", nullable = true)
+	@Column(name = "user_name")
 	private String userName;
 	
-	@Column(name = "user_password", nullable = true)
+	@Column(name = "user_password")
 	private String userPassword;
 	
-	@Column(name = "user_name_property", nullable = true)
+	@Column(name = "user_name_property")
 	private String userNameProperty;
 	
-	@Column(name = "first_name_property", nullable = true)
+	@Column(name = "first_name_property")
 	private String firstNameProperty;
 	
-	@Column(name = "surname_name_property", nullable = true)
+	@Column(name = "surname_name_property")
 	private String surnameNameProperty;
 	
-	@Column(name = "email_property", nullable = true)
+	@Column(name = "email_property")
 	private String emailProperty;
 	
-	@Column(name = "department_property", nullable = true)
+	@Column(name = "department_property")
 	private String departmentProperty;
 	
-	@Column(name = "permitted_client_addresses", nullable = true)
+	@Column(name = "permitted_client_addresses")
 	private String permittedClientAddresses;
 	
-	@Column(name = "groups_property", nullable = true)
+	@Column(name = "groups_property")
 	private String groupProperty;
 	
-	@Column(name = "default_department", nullable = true)
+	@Column(name = "default_department")
 	private Long defaultDepartment;
 	
-	@Column(name = "spnego_keytab_location", nullable = true)
+	@Column(name = "spnego_keytab_location")
 	private String spnegoKeytabLocation;
 	
-	@Column(name = "spnego_service_principal", nullable = true)
+	@Column(name = "spnego_service_principal")
 	private String spnegoServicePrincipal;
 	
 	@Column(name = "override_department_attribute", nullable = false)
@@ -77,10 +84,10 @@ public class Domain {
 	@Column(name = "auto_sync", nullable = false)
 	private boolean autoSync;
 	
-	@Column(name = "last_sync_ts", nullable = true)
+	@Column(name = "last_sync_ts")
 	private Timestamp lastSyncTs;
 	
-	@Column(name = "employee_id_property", nullable = true)
+	@Column(name = "employee_id_property")
 	private String employeeIdProperty;
 
 	public Long getId() {

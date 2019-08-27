@@ -11,11 +11,15 @@
     <modules>
         <module>qhse-orm</module>
         <module>qhse-pojo</module>
-        <module>qhse-lib-versioned</module>
         <module>qhse-lib-rest-impl</module>
         <module>qhse-lib-factory</module>
-        <module>qhse-spring-rest</module>
-        <module>qhse-lib-consumer</module>
+        <module>qhse-service-rest-domain</module>
+        <module>qhse-service-rest-law</module>
+        <module>qhse-service-rest-question-maintainance</module>
+        <module>qhse-service-rest-role</module>
+        <module>qhse-service-rest-user</module>
+        <module>qhse-web</module>
+        <module>qhse-spring-filter</module>
     </modules>
 
     <properties>

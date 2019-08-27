@@ -33,7 +33,7 @@ public class UserRestService extends RestService implements UserService {
     }
 
     @Override
-    public UserDto getUserById(String id) {
+    public UserDto getUserById(Long id) {
         return requestSingle(UserDto.class, UserServiceRequestMapping.GET_USER_BY_ID_FULL_PATH, new LinkedMultiValueMap<>() {
             {
                 add("id", id);
