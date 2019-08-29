@@ -1,0 +1,574 @@
+
+table.dataTable thead .sorting_asc:after{
+	content:"\e155";
+	color: #13ab94; !important;
+}
+table.dataTable tr.even td.sorting_1 {
+	background-color: #e2d8d0;
+}
+table.dataTable tr.odd td.sorting_1 {
+	background-color: #e2d8d7;
+}
+table.dataTable thead .sorting_desc:after{
+	content:"\e156";
+	color: #13ab94;
+}
+table.table-bordered a {
+	color:#06c;
+}
+
+.dataTables_filter span.pageSelectable a{
+	color:#13ab94;
+}
+
+.block .header, .widget-block .header, .block-flat .header {
+border-bottom: 2px solid #13ab94;
+}
+h2 {
+	color:#13ab94 !important;
+}
+.printcolor{
+	color:#13ab94 !important;
+}
+
+.btn-bg-color{
+	background-color: #13ab94 !important;
+	color:white;
+}
+.btn-bg-color:hover,.btn-bg-color:focus ,.btn-bg-color:active {
+   color:white;
+}
+
+.btn-primary{
+	background-color: #13ab94 !important;
+}
+
+/* @media 
+	only screen and (max-width: 760px),
+	(min-device-width: 768px) and (max-device-width: 1024px)  {
+	
+		Force table to not be like tables anymore
+		
+		table.table1 {
+		display: block;
+		}
+		
+		table.table1 thead {
+		display: block;
+		}
+		
+		table.table1  tbody  {
+		display: block;
+		}
+		
+		table.table1  th  {
+		display: block;
+		}
+		table.table1  td  {
+		display: block;
+		}
+		
+		table.table1  tr  {
+		display: block;
+		}
+		
+		
+		
+		Hide table headers (but not display: none;, for accessibility)
+		table.table1 thead tr { 
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+		
+		table.table1 tr { border: 1px solid #ccc; }
+		
+	table.table1	td { 
+			Behave  like a "row"
+			border: none;
+			border-bottom: 1px solid #eee; 
+			position: relative;
+			padding-left: 50%; 
+		}
+		
+		table.table1 td:before { 
+			Now like a table header
+			position: absolute;
+			Top/left values mimic padding
+			top: 6px;
+			left: 6px;
+			width: 45%; 
+			padding-right: 10px; 
+			white-space: nowrap;
+		}
+		 */
+		/*
+		Label the data
+		*/
+		/* td:nth-of-type(1):before { content: "First Name"; }
+		td:nth-of-type(2):before { content: "Last Name"; }
+		td:nth-of-type(3):before { content: "Job Title"; }
+		td:nth-of-type(4):before { content: "Favorite Color"; }
+		td:nth-of-type(5):before { content: "Wars of Trek?"; }
+		td:nth-of-type(6):before { content: "Porn Name"; }
+		td:nth-of-type(7):before { content: "Date of Birth"; }
+		td:nth-of-type(8):before { content: "Dream Vacation City"; }
+		td:nth-of-type(9):before { content: "GPA"; }
+		td:nth-of-type(10):before { content: "Arbitrary Data"; } */
+	}
+
+
+
+/* .form-group {
+margin: 0;
+padding: 20px 0;
+border-bottom: 1px dashed #efefef;
+height: 70px !important;
+
+}   */  
+
+.page-headRisk {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border-bottom: 1px solid #E9E9E9;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.05);
+  padding: 20px 25px;
+  position: relative;
+}
+
+
+/* .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #EEEEEE;
+}
+ */
+/* td {
+font: 11px 'Open Sans', sans-serif;
+padding: 5px;
+}
+
+tfoot tr td {
+text-align: center!important;
+font-weight: bold!important;
+border-top-color: silver!important;
+border-top-width: 3px!important;
+border-top-style: solid!important;
+}
+
+table a {
+color: red;
+}
+
+.panel-heading a{	
+color: #13ab94;
+}
+
+a:link {
+    text-decoration: underline;    
+}
+ul .dropdown a:link {
+    text-decoration: none !important;
+}
+ul li a:link {
+    text-decoration: none !important;
+} */
+
+/* td.searchLabel{
+padding-left: 50px !important;	
+background-color: white !important;
+border-width: 0px !important;  
+font-family: 'Open Sans', sans-serif;
+font-weight: 600;
+text-align: right;
+padding-top: 22px !important;
+margin-top: 0;
+margin-bottom: 0;
+}
+*/
+/* td.search{	
+  background-color: white !important;
+  border-width: 0px !important;
+  padding-top: 17px !important;
+} */ 
+
+/* div.label {
+	font-weight: bold;
+	vertical-align: top;
+	color: red;
+	padding-top: 40px;
+	padding-bottom: 40px;
+} */
+
+ul.raMenu {
+	padding:0;
+	margin: 10px 0px 8px 10px;
+}
+
+ul.raMenu li, ul.raMenu li.selected {
+	border:1px  #13ab94;
+	color: CF3030;
+	display:inline;
+	padding:8px;
+	text-align:center;
+	background:#eee;
+}
+
+ul.raMenu li.selected {
+	font-weight: bold;
+	background:#13ab94;
+	color:#FFFFFF;
+}
+
+ul.raMenu li a, ul.raMenu li a:visited {
+	text-align:center;
+	text-decoration:none;
+}
+
+ul.raMenu li a:hover {
+	color:#808;
+}
+
+ul.scrollList1 {
+	border: thin inset;
+	height:420px;
+	width:500px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+
+ul.scrollList2 {
+	border: thin inset;
+	height:420px;
+	width:650px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+ul.scrollList3 {
+	border: thin inset;
+	height:220px;
+	width:500px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+ul.scrollList4 {
+	border: thin inset;
+	height:220px;
+	width:650px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+ul.scrollList5 {
+	border: thin inset;
+	height:260px;
+	width:475px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+ul.scrollList6 {
+	border: thin inset;
+	height:240px;
+	width:650px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+ul.scrollList7 {
+	border: thin inset;
+	height:220px;
+	width:500px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+ul.scrollList8 {
+	border: thin inset;
+	height:220px;
+	width:650px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+ul.scrollList9 {
+	border: thin inset;
+	height:300px;
+	width:700px;
+	overflow:auto;
+	white-space: nowrap;
+}
+ul.scrollList10 {
+	border: thin inset;
+	height:300px;
+	width:650px;
+	overflow:auto;
+	white-space: nowrap;
+}
+ul.scrollList11 {
+	border: thin inset;
+	height:260px;
+	width:700px;
+	overflow:auto;
+	white-space: nowrap;
+}
+ul.scrollList12 {
+	border: thin inset;
+	height:260px;
+	width:650px;
+	overflow:auto;
+	white-space: nowrap;
+}
+ul.scrollList13 {
+	border: thin inset;
+	height:240px;
+	width:700px;
+	overflow:auto;
+	white-space: nowrap;
+}
+ul.scrollList14 {
+	border: thin inset;
+	height:240px;
+	width:650px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+ul.scrollList15 {
+	border: thin inset;
+	height:260px;
+	width:475px;
+	overflow:auto;
+	white-space: nowrap;
+}
+ul.scrollList16 {
+	border: thin inset;
+	height:420px;
+	width:480px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+ul.scrollList17 {
+	border: thin inset;
+	height:240px;
+	width:460px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+ul.scrollList18 {
+	border: thin inset;
+	height:250px;
+	width:460px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+ul.scrollList19 {
+	border: thin inset;
+	height:350px;
+	width:520px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+ul.scrollList {
+	border: thin inset;
+	height:100px;
+	width:480px;
+	overflow:auto;
+	white-space: nowrap;
+}
+ul.tableScrollList {
+	border: thin inset;
+	height:100px;
+	width:280px;
+	overflow:auto;
+	white-space: nowrap;
+}
+
+ul.auditScrollList {
+	border: thin inset;
+	height:100px;
+	width:380px;
+	overflow:auto;
+	white-space: nowrap;
+}
+.scoringCategoryTitle {
+	font-weight:bold;
+	background:#ddd;
+}
+
+/* .panel-heading {	 
+   border-width: 3px!important;
+   font-size: 18px;
+   font-weight: bold;  
+   border-color:#13ab94!important;
+   background-color:#FFFFFF!important;   
+   color:#13ab94!important;
+}
+.idCheck{
+	margin-bottom: 5px !important;
+margin-right: 4px;
+}
+.panel {  
+ border: 1px solid #ddd;
+}
+.panel-body { 
+  border-width: 1px!important;
+   border-color:#13ab94!important;
+}
+.panel-footer {  
+   border-width: 3px!important;
+} */
+
+/* thead tr th {
+border-color: silver!important;
+border-width: 1px!important;
+border-style: solid!important;
+border-bottom-color: silver!important;
+border-bottom-width: 2px!important;
+border-bottom-style: solid!important;
+color:#000000!important;
+text-align: center;
+font-weight: bold;
+}
+
+thead >tr > td{
+  border-width: 3px!important;
+  font-size: 125%;
+  text-align: center;
+  background: #FFFFFF;
+  color: #13ab94!important;
+  border-color:#13ab94!important;  
+  border-collapse: collapse;
+}
+ */
+/* .navLinks{
+	font-size: 80%;
+	text-align: left;
+} */
+
+/* .headTable{
+	border-width: 3px!important;
+  font-size: 175%;
+  border-color:#B41E1E!important; 
+} */
+
+table .danger-emphasis,
+table .danger-emphasis-dark {
+  background: #DA4932;
+  color: #FFF;
+  border-color: #DA4932;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+table .danger-emphasis-dark {
+  background-color: #c8432e;
+  border-color: #c8432e;
+}
+ 
+
+/* .panel {
+  
+  border-color: #13ab94!important;
+  border-width: 3px!important;
+}
+.panel-heading {
+  background-color :#13ab94!important;
+  border-color: #13ab94!important;
+  color:#FFFFFF!important;
+  border-width: 3px!important;
+  font-size: 175%;
+}
+
+.panel-body {
+  
+  border-color: #13ab94!important;
+  border-width: 1px!important;
+}
+
+.panel-footer {  
+  border-color: #13ab94!important;
+   background-color :#FFFFFF!important;
+   border-width: 3px!important;
+} */
+
+/* .table {
+  border: 1px solid red;
+} */
+
+
+
+/* .table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+  border: 1px solid red;
+  border-right-width:0px;
+  border-left-width:0px;
+} */
+/*CONFIG AND GENERAL STYLE*/
+/*General colors palette*/
+/*General elements*/
+/*colors palette*/
+/*social colors*/
+/*Functions*/
+span.error {
+	margin-left: 5px;
+	color: red;
+	font-weight: bold;
+}
+
+span.mandatory {
+	FONT-SIZE: 18px;
+	COLOR: red;
+	FONT-FAMILY: sans-serif;
+	TEXT-ALIGN: left;
+}
+
+span.requiredHinted {
+	margin-right: 5px;
+	display: initial;
+}
+
+.errorMessage {
+	color: red;
+	font-weight: bold;
+}
+.center-label{
+	text-align:center;
+	background-color: white !important;
+	border-width: 1px !important;
+	font-family: 'Open Sans', sans-serif !important;
+	font-weight: 600;
+	padding-top: 10px !important;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 100%;
+}
+label.right{
+	text-align:right;
+}
+
+.datetime .error{
+ margin-left: 50px;
+}
+.wrapText {
+	max-width:300px;
+	word-wrap:break-word;
+}
+
+.breadcrumb li a, .breadcrumb li a:hover {
+	color: #13ab94;
+}
+
+.breadcrumb li .disabled{
+	color: grey;
+}
+
+#bannerDiv a {
+    color:#06c;
+}

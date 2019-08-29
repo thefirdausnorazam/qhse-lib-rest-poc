@@ -1,0 +1,99 @@
+body {
+	margin: 20px; padding: 20px; background-color: #FFFFFF;
+}
+
+.btn {
+	display: none !important;
+}
+
+.col-md-12 {
+	display: none !important;
+}
+
+#currentThreshold {
+	display: none !important;
+}
+
+tr>td>span.paging {
+	display: none !important;
+}
+
+.header h2 {
+	font-weight: bold; margin-top: 10px;
+}
+
+table,.panel,tr,th,td {
+	background-color: #FFFFFF;
+}
+
+table .even {
+	background-color: #FFFFFF !important;
+}
+
+a[href]:after {
+	content: none !important;
+}
+
+a {
+	color: black;
+}
+
+@page
+{
+	margin: .3in;
+}
+
+@media print {
+	a>img {
+		display: none !important;
+	}
+	th.printColumn, td.printColumn {
+		display: none !important;
+	}
+	th:after {
+		display: none !important;
+	}
+	body {
+		margin: 20px; padding: 20px; background-color: #FFFFFF;
+	}
+	.btn {
+		display: none !important;
+	}
+	.col-md-12 {
+		display: none !important;
+	}
+	.recordsPerPage {
+		display: none !important;
+	}
+	.dataTables_filter label {
+		display: none !important;
+	}
+	#currentThreshold {
+		display: none !important;
+	}
+	td:has(span){
+		background-color:red;
+	}
+	tr>td>span.paging {
+		display: none !important;
+	}
+	.header h2 {
+		font-weight: bold; margin-top: 10px;
+	}
+	table,.panel,tr,th,td,tbody,thead,tfoot {
+		background-color: #FFFFFF; 
+	}
+	table .even {
+		background-color: #FFFFFF !important;
+	}
+	a[href]:after {
+		content: none !important;
+	}
+	a {
+		color: black;
+	}
+}
+.wrapText {
+	max-width:100px;
+	word-wrap:break-word;
+}

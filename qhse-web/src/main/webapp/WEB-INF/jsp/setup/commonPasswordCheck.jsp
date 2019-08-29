@@ -1,0 +1,1 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>{"passwordIsCommon":<c:out value="${passwordIsCommon}"/>,"passwordContainsUsername":<c:out value="${passwordContainsUsername}"/>}

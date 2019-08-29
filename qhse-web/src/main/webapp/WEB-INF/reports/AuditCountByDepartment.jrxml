@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		name="AuditCountByQuestion"
+		columnCount="1"
+		printOrder="Vertical"
+		orientation="Landscape"
+		pageWidth="840"
+		pageHeight="600"
+		columnWidth="780"
+		columnSpacing="10"
+		leftMargin="5"
+		rightMargin="5"
+		topMargin="10"
+		bottomMargin="10"
+		whenNoDataType="AllSectionsNoDetail"
+		whenResourceMissingType="Key">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+
+	<parameter name="auditProgrammeId" isForPrompting="false" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[new Long(21)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="departmentId" isForPrompting="false" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[new Long(0)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="departmentName" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new String("DepartmentName")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dateFrom" isForPrompting="false" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[com.scannellsolutions.date.DateUtils.toDate(2008, 05, 01)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dateTo" isForPrompting="false" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[com.scannellsolutions.date.DateUtils.toDate(2009, 12, 01)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="auditProgrammeName" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[("Audit Programme Name Goes Here")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="targetValue" isForPrompting="false" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[new Long(10)]]></defaultValueExpression>
+	</parameter>
+
+	<!-- groupDepartments will be either null or Boolean.TRUE -->
+	<parameter name="groupDepartments" isForPrompting="false" class="java.lang.Boolean">
+		<defaultValueExpression><![CDATA[Boolean.FALSE]]></defaultValueExpression>
+	</parameter>
+	<!-- If groupDepartments checkbox is checked, set the departmentDelim to ' - ' so that the departments will be groups together. -->
+	<parameter name="departmentDelim" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{groupDepartments}.booleanValue() ? " - " : "XXXXXXXX"]]></defaultValueExpression>
+	</parameter>
+
+	<parameter name="dateFromSql" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[com.scannellsolutions.date.DateUtils.format($P{dateFrom}, "yyyy-MM-dd")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dateToSql" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[com.scannellsolutions.date.DateUtils.format($P{dateTo}, "yyyy-MM-dd")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dateFromFormatted" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[com.scannellsolutions.date.DateUtils.format($P{dateFrom})]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dateToFormatted" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[com.scannellsolutions.date.DateUtils.format($P{dateTo})]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sqlVersion" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[("MySQL5")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dynamicSelect" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{sqlVersion}.equals("SQLServer2008") ?
+"SELECT year(start_time), month(start_time), dbo.FORMAT_yy_mon(start_time) AS formattedDate, dbo.SUBSTRING_DELIM(ISNULL(qo1.name, ISNULL(qo2.name, 'Third Party')), '$P!{departmentDelim}')  AS department, count(a.id) AS total FROM audit a " +
+"LEFT OUTER JOIN common_questions_option qo1 ON qo1.id=a.department_id " +
+"LEFT OUTER JOIN auditee ua ON ua.id=a.auditee " +
+"LEFT OUTER JOIN common_questions_option qo2 ON qo2.id=ua.department " +
+"WHERE a.status in ('IN_PROGR','COMPLETE') AND a.programme=$P!{auditProgrammeId} AND (0=$P!{departmentId} OR qo1.id=$P!{departmentId} OR qo2.id=$P!{departmentId}) AND a.start_time >= '$P!{dateFromSql}' AND a.start_time < DATEADD(day, 1, '$P!{dateToSql}') " +
+"GROUP BY year(start_time), month(start_time), dbo.FORMAT_yy_mon(start_time), dbo.SUBSTRING_DELIM(ISNULL(qo1.name, ISNULL(qo2.name, 'Third Party')), '$P!{departmentDelim}') " +
+"ORDER BY year(start_time), month(start_time), dbo.FORMAT_yy_mon(start_time), dbo.SUBSTRING_DELIM(ISNULL(qo1.name, ISNULL(qo2.name, 'Third Party')), '$P!{departmentDelim}') " 
+:
+"SELECT year(start_time), month(start_time), date_format(start_time, '%b-%y') AS formattedDate, SUBSTRING_INDEX(IFNULL(qo1.name, IFNULL(qo2.name, 'Third Party')), '$P!{departmentDelim}', 1)  AS department, count(a.id) AS total FROM audit a " +
+"LEFT OUTER JOIN common_questions_option qo1 ON qo1.id=a.department_id " +
+"LEFT OUTER JOIN auditee ua ON ua.id=a.auditee "+
+"LEFT OUTER JOIN common_questions_option qo2 ON qo2.id=ua.department " +
+"WHERE a.status in ('IN_PROGR','COMPLETE') AND a.programme=$P!{auditProgrammeId} AND (0=$P!{departmentId} OR qo1.id=$P!{departmentId} OR qo2.id=$P!{departmentId}) AND a.start_time >= '$P!{dateFromSql}' AND a.start_time  < DATE_ADD('$P!{dateToSql}', INTERVAL 1 DAY) " +
+"GROUP BY 1, 2, 3, 4 ORDER BY 1, 2, 3, 4"
+		]]></defaultValueExpression>
+	</parameter>
+
+	<queryString><![CDATA[$P!{dynamicSelect}]]></queryString>
+
+	<field name="formattedDate" class="java.lang.String"/>
+	<field name="department"    class="java.lang.String"/>
+	<field name="total"         class="java.lang.Number"/>
+
+		<group name="department" >
+			<groupExpression><![CDATA[$F{department}]]></groupExpression>
+		</group>
+		<group name="formattedDate" >
+			<groupExpression><![CDATA[$F{formattedDate}]]></groupExpression>
+		</group>
+
+	<background />
+
+	<title>
+		<band height="70" isSplitAllowed="true">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now">
+				<reportElement mode="Transparent" x="0" y="0" width="690" height="40" forecolor="#000000" backcolor="#EEEEDD" />
+				<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica-Bold" size="16" isBold="true" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" />
+				</textElement>
+			<textFieldExpression><![CDATA["Q-Pulse - " + $P{auditProgrammeName} + " in " + $P{departmentName} + "\nfrom " + $P{dateFromFormatted} + " to " + $P{dateToFormatted}]]></textFieldExpression>
+			</textField>
+
+			<textField pattern="" isBlankWhenNull="false" evaluationTime="Now">
+				<reportElement mode="Transparent" x="0" y="35" width="690" height="15" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[Boolean.valueOf($F{department} == null)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="true" isPdfEmbedded="false" pdfEncoding="Cp1252" />
+				</textElement>
+				<textFieldExpression><![CDATA[str("report.empty")]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+
+	<pageHeader />
+	<columnHeader />
+	<detail />
+	<columnFooter />
+	<pageFooter />
+
+	<summary>
+		<band height="425" isSplitAllowed="true">
+			<printWhenExpression><![CDATA[Boolean.valueOf($F{formattedDate} != null)]]></printWhenExpression>
+
+			<bar3DChart>
+				<chart customizerClass="com.scannellsolutions.jasperreports.CategoryPlotCustomizer">
+					<reportElement x="0" y="0" width="690" height="425"/>
+					<chartTitle />
+					<chartSubtitle />
+					<chartLegend />
+				</chart>
+				<categoryDataset>
+					<dataset incrementType="Group" incrementGroup="formattedDate">
+						<incrementWhenExpression><![CDATA[Boolean.TRUE]]></incrementWhenExpression>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{department}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{formattedDate}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{total}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot isShowLabels="true">
+					<plot />
+					<valueAxisLabelExpression><![CDATA["Number of Audits"]]></valueAxisLabelExpression>
+				</bar3DPlot>
+			</bar3DChart>
+<!--
+			<lineChart>
+				<chart customizerClass="com.scannellsolutions.jasperreports.LineChartCustomizer">
+					<reportElement x="0" y="0" width="690" height="425"/>
+					<chartTitle />
+					<chartSubtitle />
+					<chartLegend />
+				</chart>
+				<categoryDataset>
+					<dataset incrementType="Group" incrementGroup="formattedDate">
+						<incrementWhenExpression><![CDATA[Boolean.TRUE]]></incrementWhenExpression>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{department}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{formattedDate}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{total}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot />
+					<categoryAxisFormat>
+						<axisFormat axisLineColor="#FFFFFF" />
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat axisLineColor="#AAAAAA" />
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+-->
+		</band>
+	</summary>
+</jasperReport>

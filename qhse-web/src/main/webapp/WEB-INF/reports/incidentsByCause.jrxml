@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		name="incidentsByCause"
+		columnCount="1"
+		printOrder="Vertical"
+		orientation="Landscape"
+		pageWidth="842"
+		pageHeight="595"
+		columnWidth="782"
+		columnSpacing="0"
+		leftMargin="30"
+		rightMargin="30"
+		topMargin="20"
+		bottomMargin="20"
+		whenNoDataType="AllSectionsNoDetail"
+		isTitleNewPage="false"
+		isSummaryNewPage="false"
+		whenResourceMissingType="Key">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="startofYear" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2005"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endofYear" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="sqlVersion" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[("MySQL5")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dynamicSelect" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{sqlVersion}.equals("SQLServer2008") ?
+"SELECT i.id, severity, i.description, occurred_time, s.name subtype, t.name type, c.name cause, a.description action_desc " + 
+"FROM incident i " +
+"LEFT JOIN investigation v ON i.id = v.id " +
+"LEFT JOIN investigation_cause_type vct ON v.id = vct.investigation_id " +
+"LEFT JOIN cause_type c ON vct.cause_type_id = c.id " +
+"LEFT JOIN incident_type s ON i.subtype_id = s.id " +
+"LEFT JOIN incident_type t ON s.parent_id = t.id " +
+"LEFT JOIN action_holder h ON i.action_holder_id = h.id " +
+"LEFT JOIN action a ON h.current_action_id = a.id " +
+"WHERE i.active = 1 AND c.name IS NOT null AND cast(occurred_time as date) BETWEEN '$P!{startofYear}' AND '$P!{endofYear}' " +
+"ORDER BY cause, occurred_time"
+:
+"SELECT i.id, severity, i.description, occurred_time, s.name subtype, t.name type, c.name cause, a.description action_desc " + 
+"FROM incident i " +
+"LEFT JOIN investigation v ON i.id = v.id " +
+"LEFT JOIN investigation_cause_type vct ON v.id = vct.investigation_id " +
+"LEFT JOIN cause_type c ON vct.cause_type_id = c.id " +
+"LEFT JOIN incident_type s ON i.subtype_id = s.id " +
+"LEFT JOIN incident_type t ON s.parent_id = t.id " +
+"LEFT JOIN action_holder h ON i.action_holder_id = h.id " +
+"LEFT JOIN action a ON h.current_action_id = a.id " +
+"WHERE i.active = 1 AND c.name IS NOT null AND date(occurred_time) BETWEEN '$P!{startofYear}' AND '$P!{endofYear}' " +
+"ORDER BY cause, occurred_time"
+]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[$P!{dynamicSelect}]]></queryString>
+<!--
+	<queryString><![CDATA[
+SELECT i.id, severity, i.description, occurred_time, s.name subtype, t.name type, c.name cause, a.description action_desc 
+FROM incident i
+LEFT JOIN investigation v ON i.id = v.id
+LEFT JOIN investigation_cause_type vct ON v.id = vct.investigation_id
+LEFT JOIN cause_type c ON vct.cause_type_id = c.id
+LEFT JOIN incident_type s ON i.subtype_id = s.id
+LEFT JOIN incident_type t ON s.parent_id = t.id
+LEFT JOIN action_holder h ON i.action_holder_id = h.id
+LEFT JOIN action a ON h.current_action_id = a.id
+WHERE i.active = 1 AND c.name IS NOT null AND date(occurred_time) BETWEEN $P{startofYear} AND $P{endofYear}
+ORDER BY cause, occurred_time]]></queryString>
+-->
+	<field class="java.lang.Long"     name="id" />
+	<field class="java.lang.String"   name="severity" />
+	<field class="java.lang.String"   name="description" />
+	<field class="java.sql.Timestamp" name="occurred_time" />
+	<field class="java.lang.String"   name="subtype" />
+	<field class="java.lang.String"   name="type" />
+	<field class="java.lang.String"   name="cause" />
+	<field class="java.lang.String"   name="action_desc" />
+
+	<variable name="cause_group_count" class="java.lang.Double" incrementType="Group" incrementGroup="cause" calculation="Count">
+		<variableExpression>$F{id}</variableExpression>
+	</variable>
+
+	<group name="cause" >
+		<groupExpression><![CDATA[$F{cause}]]></groupExpression>
+		<groupHeader>
+		<band height="20" isSplitAllowed="true">
+			<printWhenExpression><![CDATA[Boolean.valueOf($F{id} != null)]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Transparent"
+					x="0"
+					y="0"
+					width="40"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="12" isBold="true" isItalic="false" isUnderline="true" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Cause"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Transparent"
+					x="40"
+					y="0"
+					width="180"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-12"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="12" isBold="true" isItalic="false" isUnderline="true" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cause}]]></textFieldExpression>
+			</textField>
+		</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20" isSplitAllowed="true" >
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band height="0" isSplitAllowed="true" >
+		</band>
+	</background>
+	<title>
+		<band height="341" isSplitAllowed="true" >
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Transparent"
+					x="0"
+					y="21"
+					width="780"
+					height="30"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-13"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="18" isBold="true" isItalic="false" isUnderline="true" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Incidents between " + $P{startofYear} + " and " + $P{endofYear} + " By Cause Report"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Transparent"
+					x="130"
+					y="60"
+					width="540"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-14">
+					<printWhenExpression><![CDATA[Boolean.valueOf($F{id} == null)]]></printWhenExpression>
+				</reportElement>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="12" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[str("report.empty")]]></textFieldExpression>
+			</textField>
+			<pie3DChart>
+				<chart evaluationTime="Report" hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="40"
+						y="70"
+						width="610"
+						height="260"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="element-1">
+						<printWhenExpression><![CDATA[Boolean.valueOf($F{id} != null)]]></printWhenExpression>
+					</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				</chart>
+				<pieDataset>
+					<dataset incrementType="Group" incrementGroup="cause" >
+						<incrementWhenExpression><![CDATA[Boolean.TRUE]]></incrementWhenExpression>
+					</dataset>
+					<keyExpression><![CDATA[$F{cause}]]></keyExpression>
+					<valueExpression><![CDATA[$V{cause_COUNT}]]></valueExpression>
+					<!--labelExpression><![CDATA[$F{cause}.length()>20 ? $F{cause}.substring(0, 19)+"..." : $F{cause}]]></labelExpression-->
+					<labelExpression><![CDATA[]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot />
+				</pie3DPlot>
+			</pie3DChart>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="0" isSplitAllowed="true" >
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" isSplitAllowed="true" >
+			<printWhenExpression><![CDATA[Boolean.valueOf($F{id} != null)]]></printWhenExpression>
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Transparent"
+					x="0"
+					y="0"
+					width="40"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-2"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[str("id")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Transparent"
+					x="40"
+					y="0"
+					width="180"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-3"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[str("type")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Transparent"
+					x="220"
+					y="0"
+					width="60"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-5"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[str("severity")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Transparent"
+					x="350"
+					y="0"
+					width="220"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-7"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[str("description")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Transparent"
+					x="570"
+					y="0"
+					width="210"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-8"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Action Description"]]></textFieldExpression>
+			</textField>
+			<line direction="TopDown">
+				<reportElement
+					mode="Opaque"
+					x="0"
+					y="10"
+					width="780"
+					height="0"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="line-1"/>
+				<graphicElement stretchType="NoStretch" pen="Thin" fill="Solid" />
+			</line>
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Transparent"
+					x="280"
+					y="0"
+					width="70"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-10"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[str("occurredDate")]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" isSplitAllowed="true" >
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Opaque"
+					x="0"
+					y="0"
+					width="40"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Opaque"
+					x="40"
+					y="0"
+					width="180"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-1"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[str("IncidentType[" + $F{type} + "]") + ": " + $F{subtype}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Opaque"
+					x="220"
+					y="0"
+					width="60"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-4"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[str("IncidentSeverity[" + $F{severity} + "]")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Opaque"
+					x="350"
+					y="0"
+					width="220"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-6"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Opaque"
+					x="570"
+					y="0"
+					width="210"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-9"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{action_desc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="false" pattern="dd-MMM-yy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self" >
+				<reportElement
+					mode="Opaque"
+					x="280"
+					y="0"
+					width="70"
+					height="20"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="textField-11"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" isStrikeThrough="false" />
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{occurred_time}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="0" isSplitAllowed="true" >
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="0" isSplitAllowed="true" >
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="240" isSplitAllowed="true" >
+			<printWhenExpression><![CDATA[Boolean.valueOf($F{id} != null)]]></printWhenExpression>
+			<bar3DChart>
+				<chart hyperlinkTarget="Self" >
+				<reportElement
+					mode="Opaque"
+					x="40"
+					y="0"
+					width="530"
+					height="230"
+					forecolor="#000000"
+					backcolor="#FFFFFF"
+					key="element-2"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				</chart>
+				<categoryDataset>
+					<dataset incrementType="Group" incrementGroup="cause" >
+						<incrementWhenExpression><![CDATA[Boolean.TRUE]]></incrementWhenExpression>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{cause}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{cause}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{cause_COUNT}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot >
+					<plot />
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</summary>
+</jasperReport>

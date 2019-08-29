@@ -2,13 +2,15 @@ package com.ideagen.qhse.pojo.dto;
 
 import java.sql.Timestamp;
 
-public class DomainDto {
+public class DomainDto extends AbstractNameDto {
 	
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	
 	private String discriminator;
-	
-	private String name;
 	
 	private boolean active;
 	
@@ -52,28 +54,12 @@ public class DomainDto {
 	
 	private String employeeIdProperty;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getDiscriminator() {
 		return discriminator;
 	}
 
 	public void setDiscriminator(String discriminator) {
 		this.discriminator = discriminator;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public boolean isActive() {

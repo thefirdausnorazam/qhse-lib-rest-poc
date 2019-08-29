@@ -1,6 +1,11 @@
 package com.ideagen.qhse.pojo.dto;
 
-public class RoleDto {
+public class RoleDto extends AbstractNameDto {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private Long id;
     private String name;

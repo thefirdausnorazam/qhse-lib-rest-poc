@@ -1,0 +1,76 @@
+
+.report {
+  font-family: "Times New Roman", serif;
+}
+
+.h1 {
+  font-size: 20px; 
+  font-weight: bold; 
+  padding: 5px;
+  margin-bottom: 5px;
+}
+.h2 {
+  font-size: 16px;
+  font-weight: bold; 
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.footer {
+  font-size: 10px;
+}
+
+
+.chart {
+  font-size: 14px;
+}
+
+.table-detail-row-alternate {
+  background-color: #EEEEEE; 
+}
+
+.table {
+  border-right: solid thin #F0F0F0;
+}
+
+.table-detail {
+  border-left: solid thin #F0F0F0;
+}
+
+.table-detail-cell {
+  border-left: solid thin #F0F0F0;
+  border-bottom: solid thin #F0F0F0;
+  font-size: 12px;
+  padding: 3px;
+}
+
+.table-header {
+  font-weight: normal;
+  background-color: #E5E5E5;
+}
+
+.table-header-cell {
+  border-left: solid thin #F0F0F0;
+  border-bottom: solid thin #F0F0F0;
+  font-size: 12px;
+  padding: 3px;
+}
+
+.table-group-header-1 {
+  background-color: #E5E5E5; 
+}
+
+.table-group-header-2 {
+  background-color: #E5E5E5; 
+}
+
+.table-group-header-cell {
+  border-left: solid thin #F0F0F0;
+  border-bottom: solid thin #F0F0F0;
+  font-size: 12px;
+  padding: 3px;
+}
+
+.crosstab-header {
+  font-weight: normal;
+  background-color: #E5E5E5;
+}

@@ -1,0 +1,47 @@
+.table-editable {
+  position: relative;
+  font-family: 'Open Sans', sans-serif !important;
+  .glyphicon {
+    font-size: 20px;
+  }
+}
+.table-editable td{
+	 font-size:12pt;
+	 font-weight: bolder;
+	   width: 10%;
+}
+
+.table-editable td{
+	 font-size:12pt;
+	 font-weight: normal;
+	   width: 10%;
+}
+
+.table-remove {
+  color: #700;
+  cursor: pointer;
+  
+  &:hover {
+    color: #f00;
+  }
+}
+
+.table-up, .table-down {
+  color: #007;
+  cursor: pointer;
+  
+  &:hover {
+    color: #00f;
+  }
+}
+
+.table-add {
+	  font-family: 'Open Sans', sans-serif !important;
+	  font-size:10pt;
+  color: white;
+  cursor: pointer;
+  
+  &:hover {
+    color: #4e9dff;
+  }
+}

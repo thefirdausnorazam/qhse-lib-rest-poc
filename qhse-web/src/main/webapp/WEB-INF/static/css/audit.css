@@ -1,0 +1,63 @@
+table.dataTable thead .sorting_asc:after{
+	content:"\e155";
+	color: #13ab94; !important;
+}
+table.dataTable tr.even td.sorting_1 {
+	background-color: #ebf5d0;
+} 
+table.dataTable tr.odd td.sorting_1 {
+	background-color: #ebf5d7;
+}
+table.dataTable thead .sorting_desc:after{
+	content:"\e156";
+	color: #13ab94
+}
+table.table-bordered a {
+color:#06c;
+}
+.dataTables_filter span.pageSelectable a{
+	color:#13ab94;
+}
+.block .header, .widget-block .header, .block-flat .header {
+border-bottom: 2px solid #13ab94;
+}
+h2 {
+	color:#13ab94;
+	font-size: 150%;
+}
+.printcolor{
+	color:#13ab94;
+}
+
+.btn-bg-color{
+	background-color: #13ab94 !important;
+	color:white;
+}
+.btn-bg-color:hover,.btn-bg-color:focus ,.btn-bg-color:active {
+   color:white;
+}
+
+.btn-primary{
+	background-color: #13ab94 !important;
+}
+th span{
+	font-weight: normal;
+	font-size: 90%;
+}
+
+span.requiredHinted {
+	margin-right: 5px;
+	display: initial;
+}
+
+input[name="durationAmount"] {
+	height: 36px;
+}
+
+.breadcrumb li a, .breadcrumb li a:hover {
+	color: #13ab94;
+}
+
+.breadcrumb li .disabled{
+	color: grey;
+}

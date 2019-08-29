@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="riskScoreTrend"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false"
+		 whenResourceMissingType="Key">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="templateId" isForPrompting="true" class="java.lang.Long">
+		<parameterDescription><![CDATA[Type EnvStd=1, EnvExp=2, HSStd=3, HSExp=4]]></parameterDescription>
+		<defaultValueExpression ><![CDATA[new Long(1)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="templateNameSelected" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{templateNameSelected}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="templateName" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[(
+  $P{templateId}.longValue()==1 ? "Environmental - Standard" 
+: $P{templateId}.longValue()==2 ? "Environmental - Express" 
+: $P{templateId}.longValue()==3 ? "Health & Safety - Standard" 
+: "Health & Safety - Express"  )]]></defaultValueExpression>
+	</parameter>
+
+	<field name="bucket" class="java.lang.Integer"/>
+	<field name="count" class="java.lang.Integer"/>
+	<field name="cutoffDate" class="java.lang.String"/>
+	<field name="pct" class="java.math.BigDecimal"/>
+	<field name="runningTotal" class="java.lang.Integer"/>
+
+
+		<group  name="cutoffGrp" >
+			<groupExpression><![CDATA[$F{cutoffDate}]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="45"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Transparent"
+						x="80"
+						y="0"
+						width="450"
+						height="20"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="16" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Q-Pulse - "+ $P{templateNameSelected} + " Risk Assessment Score Summary"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="25"
+						width="530"
+						height="20"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-1">
+							<printWhenExpression><![CDATA[Boolean.valueOf($F{bucket} == null)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="12" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[str("report.empty")]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="750"  isSplitAllowed="true" >
+				<printWhenExpression><![CDATA[Boolean.valueOf($F{bucket} != null)]]></printWhenExpression>
+				<xyLineChart>
+					<chart  hyperlinkTarget="Self"  customizerClass="com.scannellsolutions.jasperreports.RiskTrendChartCustomizer" >
+					<reportElement
+						mode="Opaque"
+						x="50"
+						y="530"
+						width="420"
+						height="220"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="element-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					</chart>
+					<xyDataset>
+						<dataset >
+							<incrementWhenExpression><![CDATA[Boolean.TRUE]]></incrementWhenExpression>
+						</dataset>
+						<xySeries>
+							<seriesExpression><![CDATA[$F{cutoffDate}]]></seriesExpression>
+							<xValueExpression><![CDATA[new Integer($F{bucket}.intValue() * 5)]]></xValueExpression>
+							<yValueExpression><![CDATA[$F{pct}]]></yValueExpression>
+						</xySeries>
+					</xyDataset>
+					<linePlot >
+						<plot />
+					<categoryAxisLabelExpression><![CDATA["Score"]]></categoryAxisLabelExpression>
+					<valueAxisLabelExpression><![CDATA["%Total  R.A.'s"]]></valueAxisLabelExpression>
+					</linePlot>
+				</xyLineChart>
+				<xyLineChart>
+					<chart  hyperlinkTarget="Self"  customizerClass="com.scannellsolutions.jasperreports.RiskTrendChartCustomizer" >
+					<reportElement
+						mode="Opaque"
+						x="50"
+						y="270"
+						width="420"
+						height="220"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="element-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					</chart>
+					<xyDataset>
+						<dataset >
+							<incrementWhenExpression><![CDATA[Boolean.TRUE]]></incrementWhenExpression>
+						</dataset>
+						<xySeries>
+							<seriesExpression><![CDATA[$F{cutoffDate}]]></seriesExpression>
+							<xValueExpression><![CDATA[new Integer($F{bucket}.intValue() * 5)]]></xValueExpression>
+							<yValueExpression><![CDATA[$F{runningTotal}]]></yValueExpression>
+						</xySeries>
+					</xyDataset>
+					<linePlot isShowLines="false" >
+						<plot />
+					<categoryAxisLabelExpression><![CDATA["Score"]]></categoryAxisLabelExpression>
+					<valueAxisLabelExpression><![CDATA["Total  R.A.'s"]]></valueAxisLabelExpression>
+					</linePlot>
+				</xyLineChart>
+				<xyLineChart>
+					<chart  hyperlinkTarget="Self"  customizerClass="com.scannellsolutions.jasperreports.RiskTrendChartCustomizer" >
+					<reportElement
+						mode="Opaque"
+						x="50"
+						y="30"
+						width="420"
+						height="200"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="element-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					</chart>
+					<xyDataset>
+						<dataset >
+							<incrementWhenExpression><![CDATA[Boolean.TRUE]]></incrementWhenExpression>
+						</dataset>
+						<xySeries>
+							<seriesExpression><![CDATA[$F{cutoffDate}]]></seriesExpression>
+							<xValueExpression><![CDATA[new Integer($F{bucket}.intValue() * 5)]]></xValueExpression>
+							<yValueExpression><![CDATA[$F{count}]]></yValueExpression>
+						</xySeries>
+					</xyDataset>
+					<linePlot isShowLines="false" isShowShapes="false" >
+						<plot />
+					<categoryAxisLabelExpression><![CDATA["Score"]]></categoryAxisLabelExpression>
+					<valueAxisLabelExpression><![CDATA["Number Of R.A.'s"]]></valueAxisLabelExpression>
+					</linePlot>
+				</xyLineChart>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="140"
+						y="10"
+						width="270"
+						height="20"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="true" isItalic="false" isUnderline="true" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+					</textElement>
+				<text><![CDATA[Number Of Risk Assessments / Score]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="140"
+						y="250"
+						width="270"
+						height="20"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="true" isItalic="false" isUnderline="true" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+					</textElement>
+				<text><![CDATA[Total Number Of Risk Assessments On or Below Score]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="120"
+						y="510"
+						width="270"
+						height="20"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="true" isItalic="false" isUnderline="true" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+					</textElement>
+				<text><![CDATA[Total % Of Risk Assessments On or Below Score]]></text>
+				</staticText>
+			</band>
+		</summary>
+</jasperReport>

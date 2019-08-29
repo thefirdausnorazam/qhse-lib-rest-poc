@@ -1,0 +1,25 @@
+#terms-styling {
+	margin: 0px auto;
+	width: 850px;
+	color: #222E32;
+}
+
+#terms-styling h1, #terms-styling h2 {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: bold;
+}
+
+#terms-styling h1 {
+	font-size: 21pt;
+}
+
+#terms-styling .col-md-12 h2 {
+	font-size: 18pt;
+	color: #222E32;
+}
+
+#terms-styling p, #terms-styling ul {
+	font-family: 'Open Sans', sans-serif !important;
+    font-size: 14pt;
+    line-height: 22px;
+}

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		name="RiskReviewByQuestion"
+		columnCount="1"
+		printOrder="Vertical"
+		orientation="Landscape"
+		pageWidth="750"
+		pageHeight="770"
+		columnWidth="650"
+		columnSpacing="10"
+		leftMargin="5"
+		rightMargin="5"
+		topMargin="5"
+		bottomMargin="5"
+		whenNoDataType="AllSectionsNoDetail"
+		whenResourceMissingType="Key">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="templateNameSelected" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{templateNameSelected}]]></defaultValueExpression>
+	</parameter>
+
+	<parameter name="questionName" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA["questionName"]]></defaultValueExpression>
+	</parameter>
+
+	<parameter name="reviewDate" isForPrompting="false" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[com.scannellsolutions.date.DateUtils.offsetMonths(-6)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="reviewDateFormatted" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[com.scannellsolutions.date.DateUtils.format($P{reviewDate})]]></defaultValueExpression>
+	</parameter>
+	
+		<parameter name="statusString" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{statusString}]]></defaultValueExpression>
+	</parameter>
+
+	<queryString><![CDATA[
+]]></queryString>
+
+	<field name="department"    class="java.lang.String"/>
+	<field name="priority"      class="java.lang.String"/>
+	<field name="percentage"    class="java.lang.Number"/>
+
+	<group name="department" >
+		<groupExpression><![CDATA[$F{department}]]></groupExpression>
+	</group>
+	<group name="priority" >
+		<groupExpression><![CDATA[$F{priority}]]></groupExpression>
+	</group>
+
+	<background />
+
+	<title>
+		<band height="75" isSplitAllowed="true">
+			<textField pattern="" isBlankWhenNull="false" evaluationTime="Now">
+				<reportElement mode="Transparent" x="0" y="0" width="739" height="70" forecolor="#000000" backcolor="#EEEEDD" />
+				<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica-Bold" size="16" isBold="true" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" />
+				</textElement>
+			<textFieldExpression><![CDATA["Q-Pulse - Percentage assessments reviewed or approved (Refer to Graph Description) for\n" + $P{templateNameSelected} + " since " + $P{reviewDateFormatted} + " for status " + $P{statusString}]]></textFieldExpression>
+			</textField>
+
+			<textField pattern="" isBlankWhenNull="false" evaluationTime="Now">
+				<reportElement mode="Transparent" x="0" y="35" width="740" height="15" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[Boolean.valueOf($F{department} == null)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="true" isPdfEmbedded="false" pdfEncoding="Cp1252" />
+				</textElement>
+				<textFieldExpression><![CDATA[str("report.empty")]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+
+	<pageHeader />
+	<columnHeader />
+	<detail />
+	<columnFooter />
+	<pageFooter />
+
+	<summary>
+		<band height="580" isSplitAllowed="true">
+			<printWhenExpression><![CDATA[Boolean.valueOf($F{department} != null)]]></printWhenExpression>
+
+			<bar3DChart>
+				<chart customizerClass="com.scannellsolutions.modules.risk.report.RiskReviewByQuestionCustomizer">
+					<reportElement x="0" y="0" width="690" height="460"/>
+					<chartTitle />
+					<chartSubtitle />
+					<chartLegend />
+				</chart>
+				<categoryDataset>
+					<dataset incrementType="Group" incrementGroup="priority">
+						<incrementWhenExpression><![CDATA[Boolean.TRUE]]></incrementWhenExpression>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{priority}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{department}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{percentage}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot isShowLabels="true">
+					<plot labelRotation="-30" />
+					<valueAxisLabelExpression><![CDATA["Percentage Reviewed"]]></valueAxisLabelExpression>
+				</bar3DPlot>
+			</bar3DChart>
+			
+			<textField pattern="" isBlankWhenNull="false" evaluationTime="Now">
+				<reportElement x="10" y="470" width="720" height="20"/>
+				<textElement>
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="true" isPdfEmbedded="false" pdfEncoding="Cp1252" />
+				</textElement>
+			<textFieldExpression><![CDATA["Graph Description: Percentage of Assessment reviewed include all assessments which are A or B or C since " + $P{reviewDateFormatted}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="10" y="500" width="720" height="50"/>
+				<textElement>
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="true" isPdfEmbedded="false" pdfEncoding="Cp1252" />
+				</textElement>
+				<text><![CDATA[	
+				A) Reviewed (by adding Review comment)
+				B) Approved (Or Re-approved)
+				C) Changed Version(Through Task Completed)]]></text>
+			</staticText>
+
+			<staticText>
+				<reportElement x="10" y="550" width="720" height="15"/>
+				<textElement>
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="true" isPdfEmbedded="false" pdfEncoding="Cp1252" />
+				</textElement>
+				<text><![CDATA[Note: Only Departments with Risk Assessments will appear on this graph]]></text>
+			</staticText>
+
+		</band>
+	</summary>
+</jasperReport>

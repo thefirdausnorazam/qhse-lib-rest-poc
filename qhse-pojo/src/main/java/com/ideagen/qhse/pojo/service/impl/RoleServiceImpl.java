@@ -1,29 +1,25 @@
 package com.ideagen.qhse.pojo.service.impl;
 
-import java.lang.reflect.InvocationTargetException;
-
-import javax.persistence.EntityManagerFactory;
-
-import org.apache.commons.beanutils.BeanUtils;
+import java.util.Map;
 
 import com.ideagen.qhse.orm.dao.impl.RoleDaoImpl;
 import com.ideagen.qhse.orm.entity.Role;
 import com.ideagen.qhse.pojo.dto.RoleDto;
 import com.ideagen.qhse.pojo.service.RoleService;
 
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl extends AbstractServiceImpl implements RoleService {
 	
 	private RoleDaoImpl roleDao;
 
-    public RoleServiceImpl(EntityManagerFactory entityManagerFactory) {
-        roleDao = new RoleDaoImpl(entityManagerFactory);
+    public RoleServiceImpl(Map<String, String> ormProperties) {
+        roleDao = new RoleDaoImpl(ormProperties);
     }
 
 	@Override
 	public RoleDto getRoleByName(String name) {
 		
 		return roleDao.findByName(name)
-                .map(role -> roletoDto(role))
+                .map(object -> roletoDto(object))
                 .orElse(null);
 	}
 
@@ -31,7 +27,7 @@ public class RoleServiceImpl implements RoleService {
 	public RoleDto getRoleById(Long id) {
 		
 		return roleDao.findById(id)
-                .map(role -> roletoDto(role))
+                .map(object -> roletoDto(object))
                 .orElse(null);
 	}
 	
@@ -39,13 +35,7 @@ public class RoleServiceImpl implements RoleService {
         
 		RoleDto roleDto = new RoleDto();
         
-        try {
-			BeanUtils.copyProperties(roleDto, role);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
+		abstractCopyProperties(roleDto, role);
         
         return roleDto;
     }

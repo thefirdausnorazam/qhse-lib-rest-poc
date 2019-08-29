@@ -1,0 +1,56 @@
+table.table-bordered a {
+color:#06c;
+}
+.dataTables_filter span.paging a.pageSelectable{
+	color:#13ab94;
+}
+table.dataTable thead .sorting_asc:after{
+	content:"\e155";
+	color: #13ab94; !important;
+}
+table.dataTable thead .sorting_desc:after{
+	content:"\e156";
+	color: #13ab94
+}
+table.dataTable tr.even td.sorting_1 {
+	background-color: #ffe2d2;
+}
+table.dataTable tr.odd td.sorting_1 {
+	background-color: #ffe2d9;
+}
+.thLine {
+	font-weight: bold; font-size: 16px; line-height: 1.42857143;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; background-color: #DDDDDD;
+}
+
+span.r {
+	color: #f33e3e; font-weight: bold;
+}
+span.o{
+	color: #ff8400; font-weight: bold;
+}
+span.g{
+	color: #13ab94; font-weight: bold;
+}
+h2 {
+	color: #13ab94;
+	font-size: 150%;
+}
+
+.g{
+	color: #13ab94;
+}
+.o{
+	color: #ff8400;
+}
+.r{
+	color: #f33e3e;
+}
+
+.breadcrumb li a, .breadcrumb li a:hover {
+	color: #13ab94;
+}
+
+.breadcrumb li .disabled{
+	color: grey;
+}

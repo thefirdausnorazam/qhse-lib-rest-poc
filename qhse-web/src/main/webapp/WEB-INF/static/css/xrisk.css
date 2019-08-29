@@ -1,0 +1,284 @@
+body {
+   	/*background-image: url(../images/bg.gif);*/
+}
+
+h1 {
+	color: #000000;
+	text-align: center;
+}
+
+h2 {
+	color: #000000;
+	text-align: center;
+}
+
+h3 {
+	color: #000000;
+	text-align: left;
+	font-family: sans-serif;
+	font-size: 11px;
+}
+span.dateformat {
+	font-family: sans-serif;
+	font-size: 11px;
+	color: #000000;
+	
+}
+span.header {
+	color: #000000;
+	text-align: left;
+	font-family: sans-serif;
+	font-size: 11px;
+    font-weight: bold;
+}
+
+span.descr {
+	color: black;
+	text-align: left;
+	font-family: sans-serif;
+	font-size: 12px;
+    font-weight: bold;
+}
+
+span.targets {
+	color: black;
+	text-align: left;
+	font-family: sans-serif;
+	font-size: 10px;
+    
+}
+
+span.links {
+	text-align: middle;
+	font-family: sans-serif;
+	font-size: 11px;
+    font-weight: bold;
+}
+
+span.jumpto {
+	text-align: center;
+	font-family: sans-serif;
+	font-size: 11px;
+    font-weight: bold;
+}
+
+span.filtercriteria {
+	text-align: left;
+	font-family: sans-serif;
+	font-size: 11px;
+    font-weight: bold;
+}
+
+div.jumpto {
+	text-align:right;
+	}
+/*----------------------------------------------*/
+/*-- ERROR MESSAGES                             */
+/*----------------------------------------------*/
+span.errMsg {
+	font-family: sans-serif;
+	font-size: 11px;
+	color: #cc3333;
+	
+}
+span.bigErrMsg {
+	font-family: sans-serif;
+	font-size: 15px;
+	color: #cc3333;
+	
+}
+
+/*----------------------------------------------*/
+/*-- HORIZONTAL LINES                           */
+/*----------------------------------------------*/
+
+hr.narrow { 
+     width:100%;
+     color: #cc3333;
+     height: 2px;
+     background-color: #cc3333;
+     border: 0;
+}
+
+hr.thick { 
+     width:100%;
+     color: #cc3333;
+     height: 4px;
+     background-color: #cc3333;
+     border: 0;
+}
+
+
+/*----------------------------------------------*/
+/*-- TABLES                                     */
+/*----------------------------------------------*/
+
+table.enter {   
+	width:100%;
+     cellspacing:0;
+     cellpadding:0;
+     border:0;
+	font-family: sans-serif;
+	font-size: 11px;
+   background-color: #d8e0f0;
+
+}
+
+table.view {   
+	width:100%;
+     cellspacing:0;
+     cellpadding:0;   
+	font-family: sans-serif;
+	font-size: 11px;
+   background-color: #d8e0f0;
+   	border-color: silver; 
+	border-width : 1px; 
+	border-style: solid; 
+		
+
+ 
+}
+tr.row_header_1{
+    background-color: #d8e0f0;
+}
+
+tr.row_header_2{
+    background-color: #d8e0f0;
+}
+
+th.enter{
+    background-color: #d8e0f0;
+    text-align:right;
+}
+
+th.view{
+    background-color: #d8e0f0;
+    text-align:right;
+    width:150px;
+    valign:top;
+ /*   	margin-top: 3px;
+    	border-top-color: navy;
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-right-color: navy;
+	border-right-style: solid;
+	border-right-width: 1px;
+	*/
+}
+
+th.header{
+    background-color: #d8e0f0;
+    text-align:left;
+}
+
+td.links{
+    text-align:center;  
+    background-color: #FFFFFF;
+    height: 25px;
+}
+
+td.clear{
+    background-color: #FFFFFF;
+    height:35px;
+}
+
+td.descr{
+    text-align:left;  
+  background-color: #ffffff;
+}
+
+td.details{
+    text-align:left;  
+    width:300px;
+}
+
+td.std_details{
+    text-align:left;  
+    width:100px;
+      	margin-top: 3px;
+    	border-top-color: navy;
+	border-top-style: solid;
+	border-top-width: 1px;
+/*	border-right-color: navy;
+	border-right-style: solid;
+	border-right-width: 1px;*/
+}
+
+td.view_std_details{
+    text-align:left;  
+    width:100px;
+      	margin-top: 3px;
+    	border-top-color: navy;
+	border-top-style: solid;
+	border-top-width: 1px;
+/*	border-right-color: navy;
+	border-right-style: solid;
+	border-right-width: 1px;*/
+}
+
+td.nonefound{
+    text-align:left;     
+}
+
+td.id_descr{
+    text-align:left;  
+   margin-top: 3px;
+  	border-top-color: navy;
+	border-top-style: solid;
+	border-top-width: 1px;
+/*	   
+border-right-color: navy;
+	border-right-style: solid;
+	border-right-width: 1px;*/
+}
+
+td.view_id_descr{
+	font-family: sans-serif;
+	font-size: 11px;
+	color: #000000;
+	
+	
+    text-align:left;  
+    height:25px;
+   margin-top: 3px;
+  	border-top-color: navy;
+	border-top-style: solid;
+	border-top-width: 1px;
+/*	   
+border-right-color: navy;
+	border-right-style: solid;
+	border-right-width: 1px;*/
+}
+
+
+th.errMsg{
+	font-family: sans-serif;
+	font-size: 11px;
+	color: #cc3333;
+}
+
+
+/*----------------------------------------------*/
+/*-- FORMS                                      */
+/*----------------------------------------------*/
+
+select {
+	width:300px;
+}
+
+
+textarea {
+	width:300px;
+}
+input {
+	width:300px;
+}
+
+input.date {
+	width:200px;
+}
+
+input.submit {
+	width:150px;
+	align:center;
+}

@@ -1,0 +1,1 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>{"isPasswordReused":<c:out value="${isPasswordReused}"/>}

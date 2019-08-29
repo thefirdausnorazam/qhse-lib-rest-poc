@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		name="RiskByQuestion"
+		columnCount="1"
+		printOrder="Vertical"
+		orientation="Landscape"
+		pageWidth="900"
+		pageHeight="595"
+		columnWidth="800"
+		columnSpacing="10"
+		leftMargin="5"
+		rightMargin="5"
+		topMargin="20"
+		bottomMargin="20"
+		whenNoDataType="AllSectionsNoDetail"
+		isTitleNewPage="false"
+		isSummaryNewPage="false"
+		whenResourceMissingType="Key">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style
+		name="Arial_Normal"
+		isDefault="true"
+		fontName="Arial"
+		fontSize="10"
+		isBold="false"
+		isItalic="false"
+		isUnderline="false"
+		isStrikeThrough="false"
+		pdfFontName="Helvetica"
+		pdfEncoding="Cp1252"
+		isPdfEmbedded="false"
+	/>
+
+	<parameter name="templateId" isForPrompting="true" class="java.lang.Long">
+		<parameterDescription><![CDATA[Type EnvStd=1, EnvExp=2, HSStd=3, HSExp=4]]></parameterDescription>
+		<defaultValueExpression><![CDATA[new Long(1)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="questionId" isForPrompting="true" class="java.lang.Long">
+		<parameterDescription><![CDATA[Type ENV=42, HS=50]]></parameterDescription>
+		<defaultValueExpression><![CDATA[new Long(42)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="siteId" isForPrompting="true" class="java.lang.Long">
+		
+		<defaultValueExpression><![CDATA[$P{siteId}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="templateNameSelected" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{templateNameSelected}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="questionName" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["questionName"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="templateName" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[(
+  $P{templateId}.longValue()==1 ? "Environmental - Standard"
+: $P{templateId}.longValue()==2 ? "Environmental - Express"
+: $P{templateId}.longValue()==3 ? "Health & Safety - Standard"
+: $P{templateId}.longValue()==4 ? "Health & Safety - Express"
+: "Environmental - "
+)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lowerThresholdLimit" isForPrompting="false" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[new Long(50)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="upperThresholdLimit" isForPrompting="false" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[new Long(250)]]></defaultValueExpression>
+	</parameter> 
+	<queryString><![CDATA[SELECT o.name optname, count(*) total,
+  IF(r.score < rth.lower_limit, '0Green', if((r.score < rth.upper_limit && rt.critical = 1), '3Blue', if(((rt.critical = 1 && r.score > rth.upper_limit && r.score < rth.critical_limit) || (rt.critical = 0 && r.score < rth.upper_limit )), '1Amber', '2Red'))) priority
+FROM risk_assessment r
+inner join risk_template rt on r.template_id = rt.id
+inner join risk_threshold rth on rth.id = (select MAX(rth2.id) from risk_threshold rth2 where rth2.template_id = rt.id AND rth2.site = $P{siteId}) 
+INNER JOIN risk_answer a ON a.assessment_id = r.id AND a.question_id=$P{questionId}
+INNER JOIN risk_answer_option ao ON ao.answer_id = a.id
+INNER JOIN common_questions_option o ON o.id = ao.option_id
+WHERE r.status='COMPLETE' AND r.template_id=$P{templateId}
+GROUP BY optname, priority]]></queryString>
+
+	<field name="optname" class="java.lang.String"/>
+	<field name="total" class="java.lang.Integer"/>
+	<field name="priority" class="java.lang.String"/>
+
+	<background>
+		<band height="0" isSplitAllowed="true">
+		</band>
+	</background>
+	<title>
+		<band height="50" isSplitAllowed="true">
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+				<reportElement
+					mode="Transparent"
+					x="10"
+					y="0"
+					width="820"
+					height="30"
+					backcolor="#EEEEDD"
+					key="textField"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica-Bold" size="16" isBold="true" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+				</textElement>
+			<textFieldExpression><![CDATA["Q-Pulse - "+$P{templateNameSelected} + " Risk Assessments By Questions" + $P{questionName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+				<reportElement
+					mode="Transparent"
+					x="165"
+					y="30"
+					width="540"
+					height="20"
+					key="textField-1">
+						<printWhenExpression><![CDATA[Boolean.valueOf($F{optname} == null)]]></printWhenExpression>
+					</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="12" isBold="true" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+				</textElement>
+			<textFieldExpression><![CDATA[str("report.empty")]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="0" />
+	</pageHeader>
+	<columnHeader>
+		<band height="0" />
+	</columnHeader>
+	<detail>
+		<band height="0" />
+	</detail>
+	<columnFooter>
+		<band height="0" />
+	</columnFooter>
+	<pageFooter>
+		<band height="0" />
+	</pageFooter>
+	<summary>
+		<band height="475" isSplitAllowed="true">
+			<printWhenExpression><![CDATA[Boolean.valueOf($F{optname} != null)]]></printWhenExpression>
+			<crosstab>
+				<reportElement
+					mode="Opaque"
+					x="10"
+					y="0"
+					width="310"
+					height="470"
+					key="crosstab"/>
+
+				<crosstabParameter name="templateId" class="java.lang.Long">
+					<parameterValueExpression><![CDATA[$P{templateId}]]></parameterValueExpression>
+				</crosstabParameter>
+
+				<crosstabParameter name="questionId" class="java.lang.Long">
+					<parameterValueExpression><![CDATA[$P{questionId}]]></parameterValueExpression>
+				</crosstabParameter>
+
+				<crosstabDataset>
+					<dataset>
+						<incrementWhenExpression><![CDATA[Boolean.TRUE]]></incrementWhenExpression>
+					</dataset>
+				</crosstabDataset>
+
+				<crosstabHeaderCell>
+					<cellContents mode="Transparent" />
+				</crosstabHeaderCell>
+
+				<rowGroup name="FuncGroup" width="150" totalPosition="End">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{optname}]]></bucketExpression>
+					</bucket>
+
+					<crosstabRowHeader>
+						<cellContents mode="Transparent">
+							<box topBorder="Thin" leftBorder="Thin" rightBorder="None" bottomBorder="None" />
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+								<reportElement
+									mode="Transparent"
+									x="5"
+									y="5"
+									width="145"
+									height="15"
+									key="textField"/>
+								<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+									<font fontName="Arial" pdfFontName="Helvetica" size="10" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+								</textElement>
+								<textFieldExpression><![CDATA[$V{FuncGroup}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+
+					<crosstabTotalRowHeader>
+						<cellContents  mode="Transparent">
+							<box topBorder="1Point" leftBorder="Thin" rightBorder="Thin" bottomBorder="Thin" />
+							<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+								<reportElement
+									mode="Transparent"
+									x="5"
+									y="5"
+									width="145"
+									height="15"
+									key="textField"/>
+								<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+									<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="true" isItalic="true" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+								</textElement>
+								<textFieldExpression><![CDATA["Grand Total"]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+
+				<columnGroup name="Priotirty" height="20" totalPosition="End" headerPosition="Center">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{priority}]]></bucketExpression>
+					</bucket>
+
+					<crosstabColumnHeader>
+						<cellContents mode="Transparent">
+							<box topBorder="Thin" leftBorder="Thin" rightBorder="None" bottomBorder="None" />
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+								<reportElement
+									mode="Transparent"
+									x="5"
+									y="5"
+									width="30"
+									height="15"
+									key="textField"/>
+								<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+									<font fontName="Arial" pdfFontName="Helvetica" size="10" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+								</textElement>
+								<textFieldExpression><![CDATA[$V{Priotirty}.substring(1)]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+
+					<crosstabTotalColumnHeader>
+						<cellContents mode="Transparent">
+							<box topBorder="Thin" leftBorder="Thin" rightBorder="Thin" bottomBorder="None" />
+							<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+								<reportElement
+									mode="Transparent"
+									x="5"
+									y="5"
+									width="25"
+									height="15"
+									key="textField"/>
+								<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+									<font fontName="Arial" pdfFontName="Helvetica" size="10" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+								</textElement>
+								<textFieldExpression><![CDATA["Total"]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+
+				<measure name="PrioritySum" class="java.lang.Integer" calculation="Sum">
+					<measureExpression><![CDATA[$F{total}]]></measureExpression>
+				</measure>
+
+				<crosstabCell width="40" height="20">
+					<cellContents mode="Transparent">
+						<box topBorder="Thin" leftBorder="Thin" rightBorder="None" bottomBorder="None" />
+						<textField isStretchWithOverflow="false" pattern="#0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+							<reportElement
+								mode="Transparent"
+								x="5"
+								y="5"
+								width="25"
+								height="15"
+								key="textField"/>
+							<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+								<font fontName="Arial" pdfFontName="Helvetica" size="10" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+							</textElement>
+							<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PrioritySum}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+
+				<crosstabCell width="40" height="20" columnTotalGroup="Priotirty">
+					<cellContents mode="Transparent">
+						<box topBorder="Thin" leftBorder="Thin" rightBorder="Thin" bottomBorder="None" />
+						<textField isStretchWithOverflow="false" pattern="#0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+							<reportElement
+								mode="Transparent"
+								x="5"
+								y="5"
+								width="25"
+								height="15"
+								key="textField"/>
+							<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+								<font fontName="Arial" pdfFontName="Helvetica" size="10" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+							</textElement>
+							<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PrioritySum}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+
+				<crosstabCell width="40" height="20" rowTotalGroup="FuncGroup">
+					<cellContents mode="Transparent">
+						<box topBorder="1Point" leftBorder="Thin" rightBorder="Thin" bottomBorder="Thin" />
+						<textField isStretchWithOverflow="false" pattern="#0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+							<reportElement
+								mode="Transparent"
+								x="5"
+								y="5"
+								width="25"
+								height="15"
+								key="textField"/>
+							<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+								<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="true" isItalic="true" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+							</textElement>
+							<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PrioritySum}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+
+				<crosstabCell width="40" height="20" rowTotalGroup="FuncGroup" columnTotalGroup="Priotirty">
+					<cellContents mode="Transparent">
+						<box topBorder="1Point" leftBorder="Thin" rightBorder="Thin" bottomBorder="Thin" />
+						<textField isStretchWithOverflow="false" pattern="#0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" hyperlinkTarget="Self">
+							<reportElement
+								mode="Transparent"
+								x="5"
+								y="5"
+								width="35"
+								height="15"
+								key="textField"/>
+							<textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+								<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="true" isItalic="true" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+							</textElement>
+							<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PrioritySum}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+
+				<whenNoDataCell>
+					<cellContents mode="Transparent">
+						<box topBorder="Thin" leftBorder="Thin" rightBorder="None" bottomBorder="None" />
+					</cellContents>
+				</whenNoDataCell>
+			</crosstab>
+
+			<stackedBar3DChart>
+				<chart isShowLegend="false" hyperlinkTarget="Self" customizerClass="com.scannellsolutions.jasperreports.RiskByGroupBarChartCustomizer">
+					<reportElement
+						mode="Opaque"
+						x="325"
+						y="0"
+						width="565"
+						height="470"
+						key="element-2"
+						stretchType="RelativeToBandHeight"/>
+				</chart>
+
+				<categoryDataset>
+					<dataset>
+						<incrementWhenExpression><![CDATA[Boolean.TRUE]]></incrementWhenExpression>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{priority}]]></seriesExpression>
+						<categoryExpression><![CDATA["" + $F{optname}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{total}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot />
+				</bar3DPlot>
+			</stackedBar3DChart>
+		</band>
+	</summary>
+</jasperReport>

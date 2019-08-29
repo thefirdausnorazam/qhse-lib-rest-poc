@@ -1,0 +1,247 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html >
+<html>
+<head>
+
+
+
+
+ <script type="text/javascript">
+   
+  
+    jQuery(document).ready(function(){
+    	
+        //initialize the javascript
+        App.init();
+        App.dashBoard();         
+        introJs().setOption('showBullets', false).start();          
+        jQuery("#siteLocation").select2();         
+        
+        var urlParam =  '';
+       
+		if (urlParam) {
+			if (urlParam ==3) {
+				if ($.cookie('lawTabs')) {
+					urlParam = $.cookie('lawTabs');
+				} else {
+					urlParam = '1';
+				}
+			}
+			jQuery('#lawTabs').val(urlParam);
+			$.cookie('lawTabs', urlParam, {
+				expires : 7,
+				path : '/'
+			});
+		} else {
+			var te = $.cookie('lawTabs');
+			if (te) {
+				urlParam = te;
+			} else {
+				urlParam = '1';
+			}
+		}
+		jQuery(
+				"#lawTabs option[value=" + urlParam
+						+ "]").attr("selected",
+				"selected");
+		jQuery("#lawLink1")
+				.attr(
+						"href",
+						'<c:url value="/law/legislationsView.htm?legRegister=" > </c:url>'
+								+ urlParam);
+		jQuery("#lawLink2").attr(
+				"href",
+				'<c:url value="/law/checklists.htm?refine=false&viewAll=true&legRegister=" />'
+						+ urlParam);
+		jQuery("#lawLink3").attr(
+				"href",
+				'<c:url value="/legal/front/checklists/KeywordIndex.jsp?registerType=" />'
+						+ urlParam);
+		jQuery("#lawLink4").attr(
+				"href",
+				'<c:url value="/legal/front/legislation/Log.jsp?legRegister=" />'
+						+ urlParam);
+		/* jQuery("#lawLink5").attr(
+				"href",
+				'<c:url value="/law/changedLegislations.htm?legRegister=" />' 
+						+ urlParam);*/
+		jQuery("#lawLink6").attr(
+				"href",
+				'<c:url value="/law/taskQueryForm.htm?legRegister="/>'
+						+ urlParam);
+		
+          /* Code For BreadCrumbs, Added by Manjush on 1 Sept 2014 */
+          
+          var link = document.location.href;
+          var arr = new Array();
+          arr = link.split('/');          
+               
+        	  
+        	  if(arr[4] != null){
+            	  var arrLink;    
+            	  jQuery.ajaxSetup({ cache: true });
+            	  switch (arr[4])
+            	  {
+            	    case 'risk':             	    	
+            	    	jQuery.getScript('<c:url value="/js/riskBreadCrumbs.js" />')
+            	    	  .done(function( script, textStatus ) {        	    		 
+            	    		  RiskBC.breadCrumbs(arr);
+            	    	    console.log( textStatus );
+            	    	  })
+            	    	  .fail(function( jqxhr, settings, exception ) {
+            	    		  console.log(  "Bread Error : "+exception.name  );
+            	    	});        	    	       	    	
+            	    	       	    	
+            	          break; 
+            	          
+            	    case 'incident': 
+            	    	
+            	    	jQuery.getScript('<c:url value="/js/incidentBreadCrumbs.js" />')
+            	    	  .done(function( script, textStatus ) {
+            	    		  IncidentBC.breadCrumbs(arr);
+            	    	    console.log( textStatus );
+            	    	  })
+            	    	  .fail(function( jqxhr, settings, exception ) {
+            	    		  console.log(  "Bread Error : "+exception.name  );
+            	    	});        	    	       	    	
+            	    	       	    	
+            	          break;
+            	          
+                    case 'audit': 
+                    	
+                    	jQuery.getScript('<c:url value="/js/auditBreadCrumbs.js" />')
+          	    	  .done(function( script, textStatus ) {        	    		 
+          	    		AuditBC.breadCrumbs(arr);
+          	    	    console.log( textStatus );
+          	    	  })
+          	    	  .fail(function( jqxhr, settings, exception ) {
+          	    		  console.log(  "Bread Error : "+exception.name  );
+          	    	});  
+                    	
+            	    	    	    	       	    	
+            	    		    	
+            	          break;
+						case 'change': 
+                    	
+                    	jQuery.getScript('<c:url value="/js/changeBreadCrumbs.js" />')
+          	    	  .done(function( script, textStatus ) {        	    		 
+          	    		ChangeBC.breadCrumbs(arr);
+          	    	    console.log( textStatus );
+          	    	  })
+          	    	  .fail(function( jqxhr, settings, exception ) {
+          	    		  console.log(  "Bread Error : "+exception.name  );
+          	    	});  
+                    	
+            	    	    	    	       	    	
+            	    		    	
+            	          break;
+            	          
+                     case 'doclink': 
+            	    	jQuery.getScript('<c:url value="/js/doclinkBreadCrumbs.js" />')
+            	    	  .done(function( script, textStatus ) {
+            	    		  DoclinkBC.breadCrumbs(arr);
+            	    	      console.log( textStatus );
+            	    	  })
+            	    	  .fail(function( jqxhr, settings, exception ) {
+            	    		  console.log(  "Bread Error : "+exception.name  );
+            	    	});       	    	       	    	
+            	    	      	    	
+            	          break;
+            	          
+                     case 'doccontrol': 
+             	    	jQuery.getScript('<c:url value="/js/docControlBreadCrumbs.js" />')
+             	    	  .done(function( script, textStatus ) {
+             	    		  DocControlBC.breadCrumbs(arr);
+             	    	      console.log( textStatus );
+             	    	  })
+             	    	  .fail(function( jqxhr, settings, exception ) {
+             	    		  console.log(  "Bread Error : "+exception.name  );
+             	    	});       	    	       	    	
+             	    	      	    	
+             	          break;
+
+                     case 'client':
+                    	 
+              	    	jQuery.getScript('<c:url value="/js/clientBreadCrumbs.js" />')
+              	    	  .done(function( script, textStatus ) {
+              	    		 ClientBC.breadCrumbs(arr);
+              	    	      console.log( textStatus );
+              	    	  })
+              	    	  .fail(function( jqxhr, settings, exception ) {
+              	    		  console.log(  "Bread Error : "+exception.name  );
+              	    	});       	    	       	    	
+              	    	      	    	
+              	          break;    
+                     case 'enviro': 
+                     case 'system':
+                    	 
+             	    	jQuery.getScript('<c:url value="/js/enviroBreadCrumbs.js" />')
+             	    	  .done(function( script, textStatus ) {
+             	    		 EnviroBC.breadCrumbs(arr);
+             	    	      console.log( textStatus );
+             	    	  })
+             	    	  .fail(function( jqxhr, settings, exception ) {
+             	    		  console.log(  "Bread Error : "+exception.name  );
+             	    	});       	    	       	    	
+             	    	      	    	
+             	          break;
+              	          
+                     case 'survey': 
+                     case 'waste':
+                     case 'maintenance':                    	 
+             	    	jQuery.getScript('<c:url value="/js/wasteBreadCrumbs.js" />')
+             	    	  .done(function( script, textStatus ) {
+             	    		 WasteBC.breadCrumbs(arr);
+             	    	      console.log( textStatus );
+             	    	  })
+             	    	  .fail(function( jqxhr, settings, exception ) {
+             	    		  console.log(  "Bread Error : "+exception.name  );
+             	    	});       	    	       	    	
+             	    	      	    	
+             	          break; 
+                     case 'law': 
+                     case 'legal':
+        
+		
+                    	
+									// Law Breadcrumbs        		 
+									if (arr[4] == 'law' || arr[4] == 'legal') {
+										jQuery("#h2Mod").text("Law");
+										jQuery('.page-head').css(
+												'border-bottom',
+												' 2px solid #0084B4');
+										jQuery('#lawDropdown').css(
+												'background-color', '#0084B4');
+										//line included to import law.css to the law model 
+										jQuery.getScript('<c:url value="/js/lawBreadCrumbs.js" />')
+				             	    	  .done(function( script, textStatus ) {
+				             	    		 LawBC.breadCrumbs(arr);
+				             	    	      console.log( textStatus );
+				             	    	  })
+				             	    	  .fail(function( jqxhr, settings, exception ) {
+				             	    		  console.log(  "Bread Error : "+exception.name  );
+				             	    	});  
+									}
+
+									break;
+
+								}
+
+								// LAW Starts- Main Menu dynamically appending
+								// Adding Value to Leg Register
+
+								jQuery.ajaxSetup({
+									cache : false
+								});
+							}//close tag for Main
+
+							jQuery('textarea').autosize();
+
+						});
+	</script>
+</head>
+<body>
+
+</body>
+</html>

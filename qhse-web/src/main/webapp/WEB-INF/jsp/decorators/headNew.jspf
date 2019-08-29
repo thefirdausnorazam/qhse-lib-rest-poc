@@ -1,0 +1,62 @@
+	
+
+	<title><fmt:message key="applicationName"/></title>
+
+	<script language="javascript" type="text/javascript">
+		// The context path is needed in /js/site.js 
+		<%-- var contextPath = '<%=request.getContextPath()%>'; --%>
+	</script>
+<%@include file="javascript.translations.jsp"%>
+	
+	
+	
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:500,400,700,500italic,800,900' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
+     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:400,800' rel='stylesheet' type='text/css'> --> 
+  
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="<c:url value="/css/jquery-ui.css" />">
+    <link rel="stylesheet" href="<c:url value="/js/jsj/bootstrap-master/dist/css/bootstrap.css" />">
+    <link rel="stylesheet" href="<c:url value="/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <![endif]-->
+    
+    <link rel="stylesheet" type="text/css" href="<c:url value="/js/jsj/jquery.gritter/css/jquery.gritter.css" />">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/js/jsj/jquery.nanoscroller/nanoscroller.css" />">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/js/jsj/jquery.easypiechart/jquery.easy-pie-chart.css" />">
+     <link rel="stylesheet" type="text/css" href="<c:url value="/js/jsj/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css" />">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/js/jsj/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.min.css" />">   
+    <link rel="stylesheet" type="text/css" href="<c:url value="/js/jsj/jquery.select2/select2.css" />">
+	<link rel="stylesheet" type="text/css" href="<c:url value="/css/datatables/dataTables.bootstrap.min.css" />">
+    
+  <!-- Custom styles for this template --> 
+  
+  <link rel="stylesheet" type="text/css" href="<c:url value="/css/cssj/flag-icon.css" />">
+  <link rel="stylesheet" type="text/css" href="<c:url value="/css/cssj/style.css" />">
+  <script type="text/javascript" src="<c:url value="/js/jsj/jquery.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jquery-ui.min.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jsj/jquery.gritter/js/jquery.gritter.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jsj/jquery.nanoscroller/jquery.nanoscroller.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jsj/jquery.select2/select2.min.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jquery.autosize.js" />" ></script>
+  <script type="text/javascript" src="<c:url value="/js/jsj/jquery.easypiechart/jquery.easy-pie-chart.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jsj/behaviour/general.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jsj/bootstrap-switch-master/dist/js/bootstrap-switch.min.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jsj/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/fieldChooser.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jsj/intro.js/intro.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/pace.min.js" />" ></script>
+  <script type="text/javascript" src="<c:url value="/js/jsj/bootstrap-master/dist/js/bootstrap.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jquery.fileDownload.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jsj/jquery.datatables/bootstrap-adapter/js/jquery.dataTables.min.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/natural.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/utils.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jquery.cookie.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jquery.sortable.min.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/bootstrap-tooltip.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jsj/moment-develop/moment.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/js/jsj/datetime-moment.js" />"></script>
+   

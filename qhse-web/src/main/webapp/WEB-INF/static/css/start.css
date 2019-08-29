@@ -1,0 +1,83 @@
+TABLE.start {
+	border-top: #d8e0f0 5px solid;
+	border-right: #d8e0f0 2px outset;
+	border-left: #d8e0f0 2px solid;
+	border-bottom: #d8e0f0 2px outset; 
+	border-collapse: collapse;
+	margin-top: 20px;
+	width: 100%;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+TABLE.start TH.header {
+	background-color: #F2F0EA;
+	font-size: 11pt;
+	font-weight: bold;
+	height: 30px;
+	text-align: left;
+}
+TABLE.start TR TH {
+	font-size: x-small;
+	text-align: center;
+}
+TABLE.start TR TD.status {
+	white-space: nowrap;
+}
+TABLE.start TR TD.date {
+	white-space: nowrap;
+}
+TABLE.start TD.icon {
+	text-align: center;
+	width: 50px;
+}
+TABLE.start TD {
+	font-size: xx-small;
+	font-weight: bold;
+	height: 30px;
+}
+TABLE.start A {
+	font-size: x-small;
+	font-weight: bold;
+}
+.warning {
+  font-size: 1;
+  font-weight: bold;
+  color: red;
+}
+.date {
+  font-size: 1;
+  font-weight: bold;
+}
+
+span.txt {
+	font-size: x-small;
+	font-weight: bold;
+}
+span.small_txt {
+	color: #cc3333;
+	font-size: xx-small;
+	font-weight: bold;
+}
+div.header {
+	color: #000000;
+	font: bold 18px sans-serif;
+	text-align: center;
+}
+
+.risk {
+	color: #cc3333;
+}
+.law {
+	color: #666699;
+}
+.incident {
+	color: purple;
+}
+.data {
+	color: #13AB94;
+}
+.audit{
+	color: #13ab94;
+}
+.change{
+	color: #13ab94;
+}

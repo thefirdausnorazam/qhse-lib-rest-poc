@@ -11,11 +11,7 @@
     <modules>
         <module>qhse-orm</module>
         <module>qhse-pojo</module>
-        <module>qhse-lib-versioned</module>
-        <module>qhse-lib-rest-impl</module>
-        <module>qhse-lib-factory</module>
-        <module>qhse-spring-rest</module>
-        <module>qhse-lib-consumer</module>
+        <module>qhse-web</module>
     </modules>
 
     <properties>

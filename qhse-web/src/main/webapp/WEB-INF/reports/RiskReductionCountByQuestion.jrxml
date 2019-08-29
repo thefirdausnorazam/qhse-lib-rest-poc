@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		name="RiskReductionCountByQuestion"
+		columnCount="1"
+		printOrder="Vertical"
+		orientation="Landscape"
+		pageWidth="750"
+		pageHeight="605"
+		columnWidth="650"
+		columnSpacing="10"
+		leftMargin="5"
+		rightMargin="5"
+		topMargin="5"
+		bottomMargin="5"
+		whenNoDataType="AllSectionsNoDetail"
+		whenResourceMissingType="Key">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="templateName" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA["TEMPLATE_NAME"]]></defaultValueExpression>
+	</parameter>
+
+	<parameter name="questionName" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA["QUESTION_NAME"]]></defaultValueExpression>
+	</parameter>
+
+	<parameter name="startDate" isForPrompting="false" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[com.scannellsolutions.date.DateUtils.firstDateOfCurrentMonth()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="startDateFormatted" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[com.scannellsolutions.date.DateUtils.format($P{startDate})]]></defaultValueExpression>
+	</parameter>
+
+	<parameter name="endDate" isForPrompting="false" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[com.scannellsolutions.date.DateUtils.lastDateOfCurrentMonth()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endDateFormatted" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression><![CDATA[com.scannellsolutions.date.DateUtils.format($P{endDate})]]></defaultValueExpression>
+	</parameter>
+
+	<parameter name="targetValue" isForPrompting="false" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[new Long(10)]]></defaultValueExpression>
+	</parameter>
+
+	<queryString><![CDATA[
+]]></queryString>
+
+	<field name="department"    class="java.lang.String"/>
+	<field name="reducedCount"  class="java.lang.Number"/>
+
+	<group name="department" >
+		<groupExpression><![CDATA[$F{department}]]></groupExpression>
+	</group>
+
+	<background />
+
+	<title>
+		<band height="75" isSplitAllowed="true">
+			<textField pattern="" isBlankWhenNull="false" evaluationTime="Now">
+				<reportElement mode="Transparent" x="0" y="0" width="740" height="40" forecolor="#000000" backcolor="#EEEEDD" />
+				<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica-Bold" size="16" isBold="true" isUnderline="false" isPdfEmbedded="false" pdfEncoding="Cp1252" />
+				</textElement>
+			<textFieldExpression><![CDATA["Q-Pulse - No. of risk assessments with scores reduced for\n" + $P{templateName} + " between " + $P{startDateFormatted} + " and " + $P{endDateFormatted}]]></textFieldExpression>
+			</textField>
+
+			<textField pattern="" isBlankWhenNull="false" evaluationTime="Now">
+				<reportElement mode="Transparent" x="0" y="35" width="740" height="15" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[Boolean.valueOf($F{department} == null)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="true" isPdfEmbedded="false" pdfEncoding="Cp1252" />
+				</textElement>
+				<textFieldExpression><![CDATA[str("report.empty")]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+
+	<pageHeader />
+	<columnHeader />
+	<detail />
+	<columnFooter />
+	<pageFooter />
+
+	<summary>
+		<band height="520" isSplitAllowed="true">
+			<printWhenExpression><![CDATA[Boolean.valueOf($F{department} != null)]]></printWhenExpression>
+
+			<bar3DChart>
+				<chart customizerClass="com.scannellsolutions.jasperreports.CategoryPlotCustomizer">
+					<reportElement x="0" y="0" width="740" height="495"/>
+					<chartTitle />
+					<chartSubtitle />
+					<chartLegend />
+				</chart>
+				<categoryDataset>
+					<dataset incrementType="Group" incrementGroup="department">
+						<incrementWhenExpression><![CDATA[Boolean.TRUE]]></incrementWhenExpression>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{department}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{department}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{reducedCount}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot isShowLabels="true">
+					<plot labelRotation="-30" />
+					<valueAxisLabelExpression><![CDATA["Number of Reductions"]]></valueAxisLabelExpression>
+				</bar3DPlot>
+			</bar3DChart>
+
+			<staticText>
+				<reportElement x="20" y="505" width="800" height="15"/>
+				<textElement>
+					<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="true" isPdfEmbedded="false" pdfEncoding="Cp1252" />
+				</textElement>
+				<text><![CDATA[Note: Where a risk assessment score has been reduced more than once in the time period, the improvement is only counted once.]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

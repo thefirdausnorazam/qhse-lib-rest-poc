@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="manDaysLostByDepartment"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="Year" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2005"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT dept.name dept, months.id mth, sum(man_days_lost) man_days_lost
+FROM common_qanda_questions_question_assoc_option qao
+left join common_qanda_questions_option dept on dept.id = qao.oid
+, integers months
+left join incident inc on month(occurred_time) = months.id 
+and dept.id = inc.department and inc.active = 1 
+and EXTRACT(YEAR FROM occurred_time) = $P{Year}
+left join investigation inv on inv.id = inc.id
+where qid = 42 and visible = 1 
+and months.id between 1 and 12
+group by dept, mth]]></queryString>
+
+	<field name="dept" class="java.lang.String"/>
+	<field name="mth" class="java.lang.Long"/>
+	<field name="man_days_lost" class="java.lang.Long"/>
+
+	<variable name="days_lost" class="java.lang.Long" resetType="None" calculation="Nothing">
+		<variableExpression><![CDATA[$F{man_days_lost} == null ? new Long(0) : $F{man_days_lost}]]></variableExpression>
+	</variable>
+	<variable name="totalDeptDaysLost" class="java.lang.Long" resetType="Group" resetGroup="department" calculation="Sum">
+		<variableExpression><![CDATA[$V{days_lost}]]></variableExpression>
+	</variable>
+	<variable name="totalMonthDaysLost" class="java.lang.Long" resetType="Group" incrementType="Group" incrementGroup="month" resetGroup="department" calculation="Sum">
+		<variableExpression><![CDATA[$F{man_days_lost}]]></variableExpression>
+	</variable>
+	<variable name="totalDaysLost" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{man_days_lost}]]></variableExpression>
+	</variable>
+
+		<group  name="department" >
+			<groupExpression><![CDATA[$F{dept}]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="200"  isSplitAllowed="true" >
+				<printWhenExpression><![CDATA[Boolean.valueOf($V{totalDeptDaysLost}.longValue() > 0)]]></printWhenExpression>
+				<bar3DChart>
+					<chart isShowLegend="false"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="530"
+						height="200"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="element-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+						<chartTitle color="#000000" >
+								<titleExpression><![CDATA[$F{dept}]]></titleExpression>
+					</chartTitle>
+					</chart>
+					<categoryDataset>
+						<dataset resetType="Group" resetGroup="department" >
+							<incrementWhenExpression><![CDATA[Boolean.TRUE]]></incrementWhenExpression>
+						</dataset>
+						<categorySeries>
+							<seriesExpression><![CDATA[""]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{mth}]]></categoryExpression>
+							<valueExpression><![CDATA[$V{days_lost}]]></valueExpression>
+						</categorySeries>
+					</categoryDataset>
+					<bar3DPlot >
+						<plot />
+					<categoryAxisLabelExpression><![CDATA["Month"]]></categoryAxisLabelExpression>
+					<valueAxisLabelExpression><![CDATA["# Days Lost"]]></valueAxisLabelExpression>
+					</bar3DPlot>
+				</bar3DChart>
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="month" >
+			<groupExpression><![CDATA[$F{mth}]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="400"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="21"
+						width="530"
+						height="20"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-13"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="18" isBold="true" isItalic="false" isUnderline="true" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{Year} + " Man Days Lost Report"]]></textFieldExpression>
+				</textField>
+				<bar3DChart>
+					<chart evaluationTime="Report"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="80"
+						width="530"
+						height="300"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="element-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					</chart>
+					<categoryDataset>
+						<dataset incrementType="Group" incrementGroup="department" >
+							<incrementWhenExpression><![CDATA[Boolean.TRUE]]></incrementWhenExpression>
+						</dataset>
+						<categorySeries>
+							<seriesExpression><![CDATA[$F{dept}]]></seriesExpression>
+							<categoryExpression><![CDATA[""]]></categoryExpression>
+							<valueExpression><![CDATA[$V{totalDeptDaysLost}]]></valueExpression>
+						</categorySeries>
+					</categoryDataset>
+					<bar3DPlot >
+						<plot />
+					</bar3DPlot>
+				</bar3DChart>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="50"
+						width="530"
+						height="20"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-14"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Total Days Lost: " + ($V{totalDaysLost} == null ? new Long(0) : $V{totalDaysLost})]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

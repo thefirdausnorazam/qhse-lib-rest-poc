@@ -1,0 +1,215 @@
+.dataTables_filter span.siteSpan {
+	color: #13ab94;
+}
+table.table-bordered a {
+color:#06c;
+}
+.dataTables_filter span.paging a.pageSelectable{
+	color:#13ab94;
+}
+table.dataTable thead .sorting_asc:after{
+	content:"\e155";
+	color: #13ab94; !important;
+}
+table.dataTable thead .sorting_desc:after{
+	content:"\e156";
+	color: #13ab94
+}
+table.dataTable tr.even td.sorting_1 {
+	background-color: #ebe8f0;
+}
+table.dataTable tr.odd td.sorting_1 {
+	background-color: #ebe8f7;
+}
+.accordion .panel {
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-bottom: 0;
+	border-left: 0px solid #ECECEC;
+	border-right: 0px solid #ECECEC;
+	margin-bottom: 5px;
+	border-top: 0;
+	box-shadow: 0 0px 0 0 rgba(0, 0, 0, 0.04);
+}
+
+.accordion.accordion-semi .acc-panel-heading a.acc {
+	background-color: #13ab94;
+	color: #FFF;
+	transition: background-color 200ms ease-in-out;
+	display:block;
+	font-size:15px;
+	padding:17px 16px;
+	text-decoration: none;
+	outline: 0 none;
+	cursor: pointer;
+}
+.accordion.accordion-semi .acc-panel-heading a.collapsed {
+	color: #13ab94;
+	display:block;
+	font-size:15px;
+	padding:17px 16px;
+	text-decoration: none;
+	outline: 0 none;
+	cursor: pointer;
+	background-color: #FFF;
+}
+
+
+.investigationQuestionGroups li {
+	background-color: #d9edf7;
+}
+.incidentQuestionGroups li {
+	background-color: #dff0d8;
+}
+li.list-group-item-danger {
+	background-color: #f2dede;
+}
+
+.accordion.incidentQuestionGroups .acc-panel-heading a.acc {
+	background-color: #dff0d8;
+	color: #13ab94;
+	transition: background-color 200ms ease-in-out;
+	display:block;
+	font-size:15px;
+	padding:17px 16px;
+	text-decoration: none;
+	outline: 0 none;
+	cursor: pointer;
+}
+.accordion.investigationQuestionGroups .acc-panel-heading a.acc {
+	background-color: #d9edf7;
+	color: #13ab94;
+	transition: background-color 200ms ease-in-out;
+	display:block;
+	font-size:15px;
+	padding:17px 16px;
+	text-decoration: none;
+	outline: 0 none;
+	cursor: pointer;
+}
+
+.accordion.incidentQuestionGroups .acc-panel-heading a.collapsed {
+	background-color: #dff0d8;
+	color: #13ab94;
+	display:block;
+	font-size:15px;
+	padding:17px 16px;
+	text-decoration: none;
+	outline: 0 none;
+	cursor: pointer;
+}
+.accordion.investigationQuestionGroups  .acc-panel-heading a.collapsed {
+	background-color: #d9edf7;
+	color: #13ab94;
+	display:block;
+	font-size:15px;
+	padding:17px 16px;
+	text-decoration: none;
+	outline: 0 none;
+	cursor: pointer;
+}
+
+
+.accordion.accordion-color .acc-panel-heading a.collapse {
+	background-color: #13ab94;
+	color: #FFF;
+}
+
+.changeTemplateQuestionPanel {
+	float: right;
+	width: 30%;
+	border: 0px solid #ddd;
+	padding: 0;
+}
+
+.changeTemplatePanel {
+	float: left;
+	width: 70%;
+	border: 0px solid #ddd;
+	padding: 0;
+}
+
+.questionGroup {
+	height:90%;
+	width:90%;
+	background-color: #f6f6f6 !important;
+	padding: 20px;
+	margin: 10px 10px 8px 10px;
+}
+
+.questionGroupEdit {
+	height:90%;
+	width:100%;
+	background-color: white !important;
+	border: 1px dashed #efefef;
+	padding: 20px;
+	margin: 10px 10px 8px 10px;
+}
+
+.accordion.accordion-color .panel-heading a.collapsed{
+	background-color: #FFF;
+	color:#13ab94;
+}
+
+
+.block .header, .widget-block .header, .block-flat .header {
+border-bottom: 2px solid #13ab94;
+}
+
+.editable-table input,.editable-table select,.editable-table textares{
+	width:150px;
+}
+
+/* .form-group {
+margin: 0;
+padding: 20px 0;
+border-bottom: 1px dashed #efefef;
+height: 70px !important;
+
+}   */
+
+
+div.scrolllist {
+height: 100px;
+background: white;
+overflow: scroll;
+overflow-x: auto;
+overflow-y: auto;
+border: thin inset;
+white-space: nowrap;
+}
+
+form .form-group label{
+	text-align:right;
+}
+h2 {
+	color:#13ab94;
+	font-size: 150%;
+}
+.printcolor{
+color:#13ab94;
+}
+
+.btn-bg-color{
+	background-color: #13ab94 !important;
+	color:white;
+}
+.btn-bg-color:hover,.btn-bg-color:focus ,.btn-bg-color:active {
+   color:white;
+}
+
+.btn-primary{
+	background-color: #13ab94 !important;
+}
+
+.breadcrumb li a, .breadcrumb li a:hover {
+	color: #13ab94;
+}
+
+.breadcrumb li .disabled{
+	color: grey;
+}
+
+#bannerDiv a {
+    color:#06c;
+}

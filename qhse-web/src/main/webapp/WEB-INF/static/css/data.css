@@ -1,0 +1,70 @@
+form .form-group label{
+	text-align:right;
+}
+
+table.table-bordered a {
+	color: #06c;
+}
+
+.block .header,.widget-block .header,.block-flat .header {
+	border-bottom: 2px solid #13AB94;
+}
+
+h2 {
+	color: #13AB94;
+	font-size: 150%;
+}
+.printcolor {
+	color: #13AB94;
+}
+
+.btn-bg-color {
+	background-color: #13AB94 !important; color: white;
+}
+
+.gotoButton {
+	text-align: right; margin-top: 10px;
+}
+.form-group.smaller{
+	height:50px;
+	margin-top:0px;
+	padding-top:7px;
+}
+
+.form-group label.editLabel {
+  
+  background-color: white !important;
+  border-width: 0px !important;
+  font-family: 'Open Sans', sans-serif !important;
+  font-weight: 600;
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 0;
+  
+}
+.form-group input[type=text]{
+	  height: 33px;
+}
+
+span.requiredHinted {
+	margin-right: 5px;
+	display: initial;
+}
+
+.g{
+	color: green;
+}
+.o{
+	color: #ff8c00;
+}
+.r{
+	color: red;
+}
+
+.breadcrumb li a, .breadcrumb li a:hover {
+	color: #13ab94;
+}
+
+.breadcrumb li .disabled{
+	color: grey;
+}
