@@ -1,0 +1,27 @@
+<li class="nav-item dropdown" id="lawDropdown">
+    <a href="<c:url value="/law/home" />" tabindex="3" class="nav-link dropdown-toggle" title="<spring:message code="menuOptions"/>" data-toggle="dropdown">
+        <span><spring:message code="lawMenu"/></span><b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu col-menu-2">
+        <li class="col-sm-6">
+            <ul>
+                <li class="dropdown-header"><i class="fa fa-home"></i> <spring:message code="homeMenu" /></li>
+                <li><a href="<c:url value="/law/lawDashboard" />"> <spring:message code="enviro.dashboard" /></a></li>
+                <li class="dropdown-header"><i class="fa fa-eye"></i> <spring:message code="menu.views" /></li>
+                <li><a id="lawLink1"> <spring:message code="indexOfLegislation" /></a></li>
+                <li><a id="lawLink2"> <spring:message code="complianceChecklists" /></a></li>
+                <li><a id="lawLink3"> <spring:message code="indexOfKeywords" /></a></li>
+                <li><a id="lawLink4"> <spring:message code="changeRecord" /></a></li>
+                <li><a href="/law/lawTask" id="lawLink6"> <spring:message code="lawTasks" /></a></li>
+            </ul>
+        </li>
+        <li class="col-sm-6">
+            <ul>
+                <li class="dropdown-header"><i class="fa fa-legal"></i><spring:message code="menu.actions" /></li>
+                <li><a href="javascript:openProfileManager()" onclick="endTour();"><spring:message code="law.profileManager" /></a></li>
+                <li><a href="javascript:openDocLinkPageFromLaw(jQuery('#profileSelect').val())"> <spring:message code="manageOtherRequirements" /></a></li>
+                <li><a href="<c:url value="/law/contentSearchForm.htm?legRegister=${lawRegisterId}" />"> <spring:message code="search" /></a></li>
+            </ul>
+        </li>
+    </ul>
+</li>

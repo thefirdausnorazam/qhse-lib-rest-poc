@@ -1,0 +1,28 @@
+.qhse_dropdown{
+    font-size: 20px;
+    position: relative;
+}
+.qhse_dropdown>button{
+    border:1px solid #CCCCCC;
+    border-radius: 0px;
+    padding: 0px;
+}
+.qhse_dropdown>button:focus{
+    box-shadow: none ;
+}
+.qhse_dropdown>button>span{
+    padding: 10px;
+}
+.qhse_dropdown .caret{
+    border-left: 1px solid #CCC;
+    line-height: 20px;
+    padding: 10px 15px;
+}
+
+.qhse_dropdown .dropdown-menu {
+    min-width: 100%;
+}
+
+.qhse_dropdown .dropdown-item{
+    padding:10px;
+}

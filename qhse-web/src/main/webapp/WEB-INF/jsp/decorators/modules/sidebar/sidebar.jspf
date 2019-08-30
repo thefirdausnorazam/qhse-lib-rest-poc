@@ -1,0 +1,51 @@
+<div id="qhse_page_sidebar" class="collapse show g-palette--mastergrey" style="display: table-cell;">
+    <ul class="nav flex-column">
+        <li class="nav-item dropright" title-center="Dashboards">
+            <a class="nav-link" data-toggle="dropdown" href="#"><i class="fa fa-dashboard"></i><span class="collapse"><spring:message code="enviro.dashboard" /></span></a>
+            <div class="dropdown-menu">
+                <div class="arrow"></div>
+                <c:if test="${isAdmin == true}">
+                    <a href="<c:url value="/enviro/adminDashboard.htm" />"><spring:message code="administratorDashboard" /></a>
+                    <a href="<c:url value="/enviro/generalOpenSearch.htm?workspace=yes" />"><spring:message code="quickLink.open.items" /></a>
+                    <a href="<c:url value="/enviro/savedSearchCriteria.htm" />"><spring:message code="quickLink.savedCriteria" /></a>
+                </c:if>
+            </div>
+        </li>
+        <li class="nav-item dropright" title-center="All Workspaces">
+            <a class="nav-link" data-toggle="dropdown" href="<c:url value="/enviro/generalHome.htm" />"><i class="fa fa-desktop"></i><span class="collapse"><spring:message code="myWorkspace" /></span></a>
+            <div class="dropdown-menu">
+                <div class="arrow"></div>
+                <c:if test="${isAdmin == true}">
+                    <a href="<c:url value="/enviro/generalHome.htm" />"><spring:message code="applicationName" /> - <spring:message code="general.QuickLinks" /></a>
+                </c:if>
+            </div>
+        </li>
+
+        <li class="nav-item dropright" title-center="Admin Settings" >
+            <a href="#" data-toggle="dropdown" class="nav-link"><i class="fa fa-cogs"></i><span class="collapse"><spring:message code="admin.setting" /></span></a>
+            <div class="dropdown-menu">
+                <div class="arrow"></div>
+                <c:if test="${isAdmin == true}">
+                    <a href="<c:url value="/system/systemConfigView.htm"></c:url>" ><spring:message code="admin.setting" /></a>
+                    <a href="<c:url value="/system/sftpSyncLog.htm"></c:url>" ><spring:message code="admin.sftpSyncLog" /></a>
+                    <a href="<c:url value="/system/samlSsoSettings.htm"></c:url>" ><spring:message code="admin.samlSsolSettings" /></a>
+                </c:if>
+            </div>
+        </li>
+        <li class="nav-item dropright">
+            <a class="nav-link" data-toggle="dropdown" href="#" ><i class="fa fa-info-circle"></i><span class="collapse"><spring:message code="menu.help" /></span></a>
+            <div class="dropdown-menu">
+                <div class="arrow"></div>
+                <a target="scannell_help" href="https://scannellsaas.com/q-pulse-help"><spring:message code="menu.help" /></a>
+                <a target="scannell_help" href="https://scannellsaas.com/q-pulse-contact"><spring:message code="menu.contactInfo" /></a>
+                <a href="<c:url value="/enviro/termsAndConditions.htm" />" ><spring:message code="termsAndConditions"/></a>
+                <a href="<c:url value="/enviro/endUserAgreement.htm" />" ><spring:message code="endUserAgreement"/></a>
+                <a href="<c:url value="/enviro/privacyPolicy.htm" />" ><spring:message code="privacyPolicy"/></a>
+            </div>
+        </li>
+    </ul>
+    <div id="copyright" class="copyright collapse" style="padding: 7px 9px;">
+        <span class="g-brand g-brand-ideagen g-brand--tiny"></span>
+        </br> &copy; Copyright <%=java.util.Calendar.getInstance().get(java.util.Calendar.YEAR)%> Ideagen PLC
+    </div>
+</div>

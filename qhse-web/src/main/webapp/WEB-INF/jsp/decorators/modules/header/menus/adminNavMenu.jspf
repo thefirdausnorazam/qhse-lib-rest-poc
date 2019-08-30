@@ -1,0 +1,23 @@
+<li class="nav-item dropdown" id="enviroDropdown"><a href="<c:url value="/enviro/home.htm"/>" id="qhse_admindropdown_link" class="nav-link dropdown-toggle" data-toggle="dropdown"><span>Admin</span> <b class="caret"></b></a>
+    <ul class="dropdown-menu col-menu-2">
+        <li class="col-sm-6">
+            <ul>
+                <li class="dropdown-header"><i class="fa fa-legal"></i> <spring:message code="menu.actions" /></li>
+                <li><a href="<c:url value="/system/groupList.htm" />"><spring:message code="enviro.groups"/></a></li>
+                <li><a href="<c:url value="/system/reportingGroupList.htm" />"><spring:message code="enviro.reportingGroups"/></a></li>
+                <li><a href="<c:url value="/system/userQueryForm.htm" />"><spring:message code="enviro.users"/></a></li>
+                <!-- <li><a href="<c:url value="/system/transferUserRecordsList.htm" />">Transfer Records</a></li> -->
+                <li><a href="<c:url value="/enviro/userAccessCreateReport.htm" />"><spring:message code="userAccessCreateReport" /></a></li>
+            </ul>
+        </li>
+        <li class="col-sm-6">
+            <ul>
+                <li><a href="<c:url value="/system/moduleList.htm" />"><spring:message code="enviro.modules"/></a></li>
+                <li><a href="<c:url value="/system/userDomainList.htm" />"><spring:message code="enviro.userDomains"/></a></li>
+                <li><a href="<c:url value="/system/licenceList.htm" />"><spring:message code="enviro.licences"/></a></li>
+                <li><a href="<c:url value="/system/questionList.htm" />"><spring:message code="enviro.questions"/></a></li>
+                <li><a href="<c:url value="/system/changeLog.htm" />"><spring:message code="enviro.changeLog"/></a></li>
+            </ul>
+        </li>
+    </ul>
+</li>

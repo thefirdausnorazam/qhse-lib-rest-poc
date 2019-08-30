@@ -1,0 +1,231 @@
+<div class="qhse_page_section">
+    <table class="queryTable_search" cellpadding="2px" cellspacing="5px" align="right">
+        <tr>
+            <td>Go to Task <input type="text" id="gotoId" name="id" size="3"></td>
+            <td><input type="submit" class="g-btn g-btn--primary" value="Go"></td>
+            <td><button type="button" class="g-btn g-btn--primary" id="queryTableToggleLink" onclick="$('#qhse_search_criteria_box').toggle();"><i class="fa fa-compress" style="color:white"> </i> Display Search</button></td>
+            <td><button type="button" onclick="window.open(jQuery('#printParam').val(), '_blank')" class="g-btn g-btn--primary"><i class="fa fa-print" style="color:white"></i><span></span></button></td>
+        </tr>
+    </table>
+</div>
+<div id="qhse_search_criteria_box" class="qhse_page_section qhse_search_criteria">
+    <div class="qhse_page_header">Search Criteria</div>
+    <form method="POST" class="qhse_page_form" id="queryForm" action="/SCANNELL-BASF/law/taskQueryResult.htmf">
+        <input name="calculateTotals" type="hidden" value="true"/>
+        <input name="pageNumber" type="hidden" value="1"/>
+        <input name="pageSize" type="hidden" value="20"/>
+        <div class="form-group">
+            <label class="col-sm-3 control-label scannellGeneralLabel rightAlign">
+                Business Areas
+            </label>
+            <div class="col-sm-6">
+                <select id="businessArea" name="businessAreaId" class="form-control" style="width:100%">
+                    <option value="" hidden disabled selected>Choose</option>
+                    <option value="1">Environmental</option>
+                    <option value="2">Health &amp; Safety</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label scannellGeneralLabel nowrap rightAlign">Description</label>
+            <div class="col-sm-6">
+                <input id="name" name="name" class="form-control" style="width:100%" type="text" value=""/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label scannellGeneralLabel nowrap rightAlign">Task Type</label>
+            <div class="col-sm-6">
+                <select id="type" name="type" class="form-control">
+                    <option value="" hidden disabled selected>Choose</option>
+                    <option value="LT">Compliance Task</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label scannellGeneralLabel nowrap rightAlign">User Responsible</label>
+            <div class="col-sm-6">
+                <select id="responsibleUser" name="responsibleUser" class="form-control" style="width:100%">
+                    <option value="" hidden disabled selected>Choose</option>
+                    <option value="10000000117">Bedkowska, Grazyna</option>
+                    <option value="10000000119">Chng, Eng Honk</option>
+                    <option value="10000000009">Cogan, Myles</option>
+                    <option value="10000000036">Hughes, Margaret</option>
+                    <option value="10000000122">John, Goh</option>
+                    <option value="10000000124">Level2, Level2</option>
+                    <option value="10000000123">Level3, Level3</option>
+                    <option value="1">Mccabe, Ciaran</option>
+                    <option value="9">Mcsweeney, Dan</option>
+                    <option value="10000000116">Mullan, Keith</option>
+                    <option value="3">Purcell, Tom</option>
+                    <option value="13">Scannell, Mary</option>
+                    <option value="9999999999">Solutions, Scannell</option>
+                    <option value="10000000114">Van De Voorde, Bart </option>
+                    <option value="10000000118">Wong, Yip Fan</option>
+                </select>
+                (Choose = All)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label scannellGeneralLabel nowrap rightAlign">Status</label>
+            <div class="col-sm-6">
+                <select id="status" name="status" class="form-control">
+                    <option value="" hidden disabled selected>Choose</option>
+                    <option value="IN_PROGR" >In Progress</option>
+                    <option value="COMPLETE">Complete</option>
+                    <option value="TRASH">Trash</option>
+                    <option value="ARCHIVE">Archive</option>
+                    <option value="REJECTED">Rejected</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label scannellGeneralLabel nowrap rightAlign">Priority</label>
+            <div class="col-sm-6">
+                <select id="priority" name="priority" class="form-control">
+                    <option value="" hidden disabled selected>Choose</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label scannellGeneralLabel">Department</label>
+            <div class="col-sm-6">
+                <select id="departmentId" name="departmentId" class="form-control qhse_form_select" >
+                    <option value="" hidden disabled selected>Choose</option>
+                    <c:forEach items="${page.departments}" var="department">
+                        <option value="${department.id}">${department.description}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3">Start Date From</label>
+            <div class="col-sm-6 input-group mb-3 date qhse_form_date">
+                <input class="form-control" size="16" id="startDateFrom" name="startDateFrom" type="text"  readonly>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-th"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3">To</label>
+            <div class="col-sm-6 input-group mb-3 date qhse_form_date">
+                <input class="form-control" size="16" id="startDateTo" name="startDateTo" type="text"  readonly>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-th"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3">Target Completion Date From </label>
+            <div class="col-sm-6 input-group mb-3 date qhse_form_date">
+                <input class="form-control" size="16" id=targetCompletionDateFrom name="targetCompletionDateFrom" type="text"  readonly>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-th"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3">Target Completion Date To </label>
+            <div class="col-sm-6 input-group mb-3 date qhse_form_date">
+                <input class="form-control" size="16" id="targetCompletionDateTo" name="targetCompletionDateTo" type="text"  readonly>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-th"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3">Completion Date From </label>
+            <div class="col-sm-6 input-group mb-3 date qhse_form_date">
+                <input class="form-control" size="16" id=completionDateFrom name="completionDateFrom" type="text"  readonly>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-th"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3">Completion Date To </label>
+            <div class="col-sm-6 input-group mb-3 date qhse_form_date">
+                <input class="form-control" size="16" id="completionDateTo" name="completionDateTo" type="text"  readonly>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-th"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label scannellGeneralLabel nowrap rightAlign">Created By</label>
+            <div class="col-sm-6">
+                <select id="createdByUser" name="createdByUser" class="form-control">
+                    <option value="" hidden disabled selected>Choose</option>
+                    <option value="10000000117">Bedkowska, Grazyna</option>
+                    <option value="10000000119">Chng, Eng Honk</option>
+                    <option value="10000000009">Cogan, Myles</option>
+                    <option value="10000000036">Hughes, Margaret</option>
+                    <option value="10000000122">John, Goh</option>
+                    <option value="10000000124">Level2, Level2</option>
+                    <option value="10000000123">Level3, Level3</option>
+                    <option value="1">Mccabe, Ciaran</option>
+                    <option value="9">Mcsweeney, Dan</option>
+                    <option value="10000000116">Mullan, Keith</option>
+                    <option value="3">Purcell, Tom</option>
+                    <option value="13">Scannell, Mary</option>
+                    <option value="9999999999">Solutions, Scannell</option>
+                    <option value="10000000114">Van De Voorde, Bart </option>
+                    <option value="10000000118">Wong, Yip Fan</option>
+                </select>
+                (choose = All)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label scannellGeneralLabel nowrap rightAlign">Overdue</label>
+            <div class="col-sm-6">
+                <input id="overdue" name="overdue" class="narrow" type="checkbox" value="true"/><input type="hidden" boundValue="1" name="_overdue"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label scannellGeneralLabel nowrap rightAlign">Sort By</label>
+            <div class="col-sm-6">
+                <select id="sortName" name="sortName" class="form-control">
+                    <option value="" hidden disabled selected>Choose</option>
+                    <option value="id">ID</option>
+                    <option value="description">Description</option>
+                    <option value="responsibleUser">User Responsible</option>
+                    <option value="targetCompletionDate">Target Completion Date</option>
+                    <option value="completionDate">Completion Date</option>
+                    <option value="creationDate">Creation Date</option>
+                    <option value="lastUpdatedTs">Last Updated Time</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="spacer2 text-center">
+            <button type="submit" class="g-btn g-btn--primary" onClick="resetExcelRequest();this.form.pageNumber.value = 1;trimDescription();">Search</button>
+            <button type="button" class="g-btn g-btn--secondary" onClick="resetExcelRequest();clearForm()" >Clear</button>
+
+            <button type="submit" class="g-btn g-btn--primary" onClick="excelRequest();this.form.pageNumber.value = 1;">Export To Excel</button>
+
+            <input type="hidden" id="excel" name="excel" value="NO" />
+        </div>
+        <div id="searchCriteria.summary"></div>
+        <div id="resultsTaskDiv"></div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+    });
+
+</script>

@@ -1,0 +1,15 @@
+.cl-wrapper{
+  position: absolute;
+  top: 60px;
+  display: table;
+  width:100%;
+}
+.cl-sidebar{
+  display: table-cell !important;
+  position: relative;
+  width:60px;
+}
+.cl-content{
+  display: table-cell;
+  position: relative;
+}

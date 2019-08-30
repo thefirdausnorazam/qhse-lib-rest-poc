@@ -1,0 +1,39 @@
+.queryTable {
+  margin-top: 10px;
+  text-align: center;
+}
+.queryTable .queryTable_table_head>th{
+    opacity: 0.2;
+    content: "\e150";
+}
+
+.queryTable .queryTable_content{
+  display: none;
+}
+.queryTable .queryTable_body{
+  text-align: left;
+}
+.queryTable .queryTable_table>tbody>tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+.queryTable .queryTable_pagination td{
+  vertical-align: middle;
+  border:none !important;
+}
+
+.queryTable .queryTable_loading {
+  display: none;
+  text-align: center;
+}
+.queryTable .queryTable_pagination .queryTable_pagination_previous_page, .queryTable .queryTable_pagination .queryTable_pagination_next_page {
+  display: none;
+}
+.queryTable .queryTable_pagination a{
+  text-decoration: none;
+  color:#06C;
+}
+
+.queryTable_search{
+  border: none;
+}

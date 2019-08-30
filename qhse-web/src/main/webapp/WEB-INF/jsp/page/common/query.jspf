@@ -1,0 +1,20 @@
+<div class="queryTable">
+    <div class="queryTable_body">
+        <div class="queryTable_header qhse_page_header">Search Results</div>
+        <div class="queryTable_loading">Loading ...</div>
+        <div class="queryTable_content">
+            <table id="queryTable_table" class="queryTable_table table table-striped table-bordered">
+                <thead>
+                    <tr id="queryTable_table_head"></tr>
+                </thead>
+                <tbody id="queryTable_table_body"></tbody>
+                <tfoot>
+                    <tr id="queryTable_table_foot"></tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <input type="hidden" name="qhse_query_current_page" value="1"/>
+    <input type="hidden" name="qhse_query_records_per_page" value="10"/>
+</div>
+

@@ -1,0 +1,15 @@
+<ul class="nav navbar-nav user-nav">
+    <spring:message code="changeLanguage" var="changeLang"/>
+    <li class="dropdown profile_menu international"><a id="qhse_page_language_selection" href="#" class="dropdown-toggle" title="${changeLang}" data-toggle="dropdown"><i
+            class="fa fa-globe"></i><span><spring:message code="languages" /> </span> <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a id="qhse_page_language_default" href="#"><spring:message code="currentLocale" />${pageContext.response.locale}</a></li>
+            <li class="dropdown-divider"></li>
+            <li><a id="qhse_page_language_english" href="<c:out value="${landingPage}" />?language=en"><spring:message code="english" /> <span class="flag-icon flag-icon-gb"></span></a></li>
+            <li><a id="qhse_page_language_spanish" href="<c:out value="${landingPage}" />?language=span"><spring:message code="spanish" /> <span class="flag-icon flag-icon-es"></span></a></li>
+            <li><a id="qhse_page_language_french" href="<c:out value="${landingPage}" />?language=fr"><spring:message code="french" /> <span class="flag-icon flag-icon-fr"></span></a></li>
+            <li><a id="qhse_page_language_chinese" href="<c:out value="${landingPage}" />?language=zh_CN"><spring:message code="chinese" />  <span
+                    class="flag-icon flag-icon-cn"></span></a></li>
+        </ul>
+    </li>
+</ul>

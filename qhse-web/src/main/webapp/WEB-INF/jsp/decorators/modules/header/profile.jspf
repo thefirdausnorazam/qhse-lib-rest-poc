@@ -1,0 +1,11 @@
+<ul class="nav navbar-nav user-nav">
+    <spring:message code="loggedInUser" var="loggedIn"/>
+    <li class="dropdown profile_menu d-flex flex-row align-items-stretch"><a id="qhse_profile_dropdown" href="#" class="dropdown-toggle" title="${loggedIn}" data-toggle="dropdown"><img
+            alt="Avatar" src="<c:url value="/static/images/icons/avatar/avatar_user.jpg" />" /><span><c:out value="${uName}" /></span> <b class="caret"></b></a>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li><a id="qhse_change_password" href="<c:url value="/system/userChangePassword.htm" />"><spring:message code="changePassword" /></a></li>
+            <li class="dropdown-divider"></li>
+            <li><a id="qhse_logout_button" href="<c:url value="/logout"/>"><spring:message code="signOut" /></a></li>
+        </ul>
+    </li>
+</ul>
