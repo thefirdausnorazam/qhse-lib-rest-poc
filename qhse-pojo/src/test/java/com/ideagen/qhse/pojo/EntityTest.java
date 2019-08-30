@@ -57,7 +57,7 @@ public class EntityTest {
 				put("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
 				put("hibernate.connection.url", "jdbc:mysql://localhost:3306/qhse_test?serverTimezone=Asia/Kuala_Lumpur");
 				put("hibernate.connection.username", "root");
-				put("hibernate.connection.password", "p@ssw0rd");
+				put("hibernate.connection.password", "root");
 				put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
 				put("hibernate.hbm2ddl.auto", "");
 				//put("hibernate.show_sql", "true");
